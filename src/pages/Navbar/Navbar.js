@@ -6,6 +6,7 @@ import CartContext from '../../Context/CartContext'
 const Navbar= () =>{
   const context = useContext(CartContext)
   return (
+    
   <div className='navback'>
 
   <div className="d-grid gap-3 d-md-block">

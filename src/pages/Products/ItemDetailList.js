@@ -12,7 +12,7 @@ const Items = () => {
   if (data!==undefined) {
     products = data.map(product => {
       return (
-    <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '15rem'}} key={product.id}>
+    <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '14rem'}} key={product.id}>
       
       
      
@@ -71,13 +71,13 @@ const Items = () => {
       marginLeft: 'auto',
     }}>
       <Row>
-      <Col md={1}> <Category /> </Col>
+      <Col md={2}> <Category /> </Col>
       {data===undefined ? (
         <div>
           Cargando
         </div>
       ) : (
-        <Col md={11}>
+        <Col md={10}>
           <Container style={{ maxWidth: '100%'}}>
           <Row style={{ maxWidth: '100%', justifyContent: 'center'}}>
             {products}
