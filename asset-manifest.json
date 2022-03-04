@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Coderhouse-React/static/css/main.1cc6aefa.css",
-    "main.js": "/Coderhouse-React/static/js/main.eb51d915.js",
+    "main.css": "/Coderhouse-React/static/css/main.97fe0856.css",
+    "main.js": "/Coderhouse-React/static/js/main.dbb19e80.js",
     "static/js/787.18f58b0c.chunk.js": "/Coderhouse-React/static/js/787.18f58b0c.chunk.js",
     "static/media/brand-icons.svg": "/Coderhouse-React/static/media/brand-icons.57e963e3d6dd0a9cf051.svg",
     "static/media/icons.svg": "/Coderhouse-React/static/media/icons.b30fd8419d7e6d591885.svg",
@@ -20,12 +20,12 @@
     "static/media/outline-icons.woff": "/Coderhouse-React/static/media/outline-icons.ddae9b1ba9b0b42f5880.woff",
     "static/media/outline-icons.woff2": "/Coderhouse-React/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/Coderhouse-React/index.html",
-    "main.1cc6aefa.css.map": "/Coderhouse-React/static/css/main.1cc6aefa.css.map",
-    "main.eb51d915.js.map": "/Coderhouse-React/static/js/main.eb51d915.js.map",
+    "main.97fe0856.css.map": "/Coderhouse-React/static/css/main.97fe0856.css.map",
+    "main.dbb19e80.js.map": "/Coderhouse-React/static/js/main.dbb19e80.js.map",
     "787.18f58b0c.chunk.js.map": "/Coderhouse-React/static/js/787.18f58b0c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1cc6aefa.css",
-    "static/js/main.eb51d915.js"
+    "static/css/main.97fe0856.css",
+    "static/js/main.dbb19e80.js"
   ]
 }
