@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import CartContext from '../../Context/CartContext';
 import finalData from "../../Components/ProductsApi"
 import apiData from "../../Components/PushApi"
+import userData from "../../Components/UserApi"
 import ApiContext from '../../Context/ApiContext';
 import { Link } from 'react-router-dom';
 import { Input, Image, Form, Step, Icon, List, Label, Segment, Header } from 'semantic-ui-react';
@@ -16,8 +17,8 @@ AOS.init({
 const Cart = () =>{
   const context = useContext(CartContext);
   const contextApi = useContext(ApiContext);
-  const lastValue=finalData()
-  
+  const lastValue=finalData();
+  const userValue= userData();
   const increase = (h)=>{
     context.upCant(h.target.value)
   }
@@ -39,8 +40,6 @@ const Cart = () =>{
 
   const deleteId = (h)=>{
     context.eliminarId(h.target.value);
-    
-  const testAos = false
 }
   const fullClear = ()=>{
     context.clear()
@@ -114,7 +113,7 @@ const handleName = (event) => {
   setName(event.target.value)
 }
 const handleEmail = (event) => {
-
+  console.log(userValue)
   setEmail(event.target.value)
 }
 const handleValidEmail = (event) => {

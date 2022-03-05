@@ -20,11 +20,13 @@ props.items.map(x=>finalPrice=finalPrice+(x.price*x.cantidad))
 
 // Add a new document with a generated id.
 addDoc(collection(db, "order"), {
+    
     buyer: props.name,
     items: props.items,
     date: new Date().toLocaleString() + "",
     total: finalPrice, 
     phone: props.phone, 
+    email: props.email
   })
  
 .then(function(docRef) {
