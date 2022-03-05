@@ -18,44 +18,72 @@ const SingleCategory = () => {
       
      
 
+      
+      {/* CAMBIAR ACA */}
+      {x.stock >=1 ? (
+      <div> 
       <Col style={{paddingTop: '20px'}}>
       <Segment>
-      <Header>
-      {x.stock >=1 ? (
-        <Link to={`/products/${x.id}`}><h6>{x.title}</h6></Link>
-      ) : (<h6>{x.title}</h6>)}  
-      </Header>
-      <Divider clearing />
-      <Image style={{height: "150px"}} src={`${x.img}`} rounded  centered />
-      <Divider clearing />
-
-      {x.stock >=1 ? ( 
-      <div>
-        <div style={{display: "flex", justifyContent: "center"}}>
-        <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-        <p> En stock / ${x.price}</p>
-        </div>
-      </div>
-      
-      ) : (
+        <div>
+        <Header>
+        <Link to={`/products/${x.id}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>{x.title}</h6></Link>
+        </Header>
+        <Divider clearing />
+        <Link to={`/products/${x.id}`}>
+        <Image style={{height: "150px"}} src={`${x.img}`} rounded  centered />
+        </Link>
+        <Divider clearing />
+       
         <div>
         <div style={{display: "flex", justifyContent: "center"}}>
-        <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-        <p> Sin stock / ${x.price}</p>
+        
+        <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
+        <p> En stock | ${x.price}</p>
         </div>
       </div>
-      )}
+      </div>
+      </Segment>
+      
+      </Col> 
+      </div> 
+      ) : (
+      <div>
+      <Col style={{paddingTop: '20px'}}> 
+        <Segment>
+        <div> 
+        <Header>
+        <h6 style={{justifyContent: 'center', display: 'flex'}}>{x.title}</h6>
+        </Header>
+        <Divider clearing />
+        
+        <Image style={{height: "150px"}} src={`${x.img}`} rounded  centered />
 
-  </Segment>
+        <Divider clearing />
+      <div>
+        <div style={{display: "flex", justifyContent: "center"}}>
+        <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
+        <p> Sin stock | ${x.price}</p>
+        </div>
+      </div>
+      </div> 
+      </Segment>
+      
+      </Col> 
+      </div> 
+      )}  
+      
+
+
+  
       
         
-      </Col> 
 
    
        
          
      
    </div>
+
     )
   })
   return (

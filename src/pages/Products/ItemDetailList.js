@@ -14,43 +14,64 @@ const Items = () => {
       return (
     <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '14rem'}} key={product.id}>
       
-      
-     
-
+      {/* CAMBIAR ACA */}
+      {product.stock >=1 ? (
+      <div> 
       <Col style={{paddingTop: '20px'}}>
       <Segment>
-      <Header>
-      {product.stock >=1 ? (
+        <div>
+        <Header>
         <Link to={`products/${product.id}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h6></Link>
-      ) : (<h6 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h6>)}  
-      </Header>
-      <Divider clearing />
-      <Image style={{height: "150px"}} src={`${product.img}`} rounded  centered />
-      <Divider clearing />
-
-      {product.stock >=1 ? ( 
-      <div>
+        </Header>
+        <Divider clearing />
+        <Link to={`products/${product.id}`}>
+        <Image style={{height: "150px"}} src={`${product.img}`} rounded  centered />
+        </Link>
+        <Divider clearing />
+       
+        <div>
         <div style={{display: "flex", justifyContent: "center"}}>
         
         <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
         <p> En stock | ${product.price}</p>
         </div>
       </div>
+      </div>
+      </Segment>
       
-      
+      </Col> 
+      </div> 
       ) : (
+      <div>
+      <Col style={{paddingTop: '20px'}}> 
+        <Segment>
+        <div> 
+        <Header>
+        <h6 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h6>
+        </Header>
+        <Divider clearing />
+        
+        <Image style={{height: "150px"}} src={`${product.img}`} rounded  centered />
+
+        <Divider clearing />
       <div>
         <div style={{display: "flex", justifyContent: "center"}}>
         <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
         <p> Sin stock | ${product.price}</p>
         </div>
       </div>
-      )}
+      </div> 
+      </Segment>
+      
+      </Col> 
+      </div> 
+      )}  
+      
 
-  </Segment>
+
+  
       
         
-      </Col> 
 
    
        

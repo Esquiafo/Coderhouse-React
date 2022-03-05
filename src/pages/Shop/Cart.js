@@ -19,7 +19,6 @@ const Cart = () =>{
   const lastValue=finalData()
   
   const increase = (h)=>{
-    console.log(h.target.value)
     context.upCant(h.target.value)
   }
   const decrease = (h)=>{
@@ -67,25 +66,25 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
       {lastValue!==undefined? (
       <Segment  style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
    <Container><Row style={{justifyContent: "center"}}>
-      <Col xs={6} md={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img}`} rounded /></Col>
+      <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img}`} rounded /></Col>
 
-      <Col xs={6} md={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
+      <Col xs={6} sm={6} md={4} lg={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
 
-      <Col  md={3}   style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}>
+      <Col  md={4} sm={6}lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}>
  
         <Link style={{display:'flex'}} to="/cart">
 
-          <Button variant="danger"  style={{width: '35px'}} value={count} onClick={decrease}>-</Button>
+          <Button variant="outline-dark" style={{width: '35px'}} value={count} onClick={decrease}>-</Button>
           <Input   style={{width: '65px', textAlign: 'center'}} value={product.cantidad}/>    
-          <Button variant="success" style={{width: '35px'}} value={count} onClick={increase}>+</Button>
+          <Button variant="outline-dark" style={{width: '35px'}} value={count} onClick={increase}>+</Button>
        
         </Link> 
  
         
       </Col>
 
-      <Col  md={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}><h2><Label tag size={'big'} as='a'>${(product.price)*(product.cantidad)}</Label></h2></Col>
-      <Col  md={1}  style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}>
+      <Col sm={6} md={8} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}><h2><Label tag size={'big'} as='a'>${(product.price)*(product.cantidad)}</Label></h2></Col>
+      <Col sm={6}  md={4} lg={3}  style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}>
                 <Link  to="/cart">
           
                 <Label circular color={'red'} onClick={deleteId} value={count}  key={'red'}>X</Label>

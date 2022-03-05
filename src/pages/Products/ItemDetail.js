@@ -9,13 +9,13 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 const ItemDetail = () => {
   const ultimateData = finalData();
   const value = useParams();
-  const [contador, setCounter] = useState(1)
+  const [contador, setCounter] = useState(1);
   let count=-1
   const filterItem=[]
   
   const context = useContext(CartContext);
-  const increase = ()=>{
-    setCounter(contador==ultimateData[value.productId-1].stock ? contador+0 : contador+1)
+  const increase = (h)=>{
+    setCounter(contador== h.target.value ? contador+0 : contador+1)
   }
   const decrease = ()=>{
     setCounter(contador==1 ? contador+0 : contador-1)
@@ -58,7 +58,6 @@ const ItemDetail = () => {
     
 
 }
-  
 
   
   return (
@@ -77,7 +76,7 @@ const ItemDetail = () => {
             <Col xs={12} md={4}>
             <Image  src={`${filterItem[0][0].img}`} size="medium" rounded  centered/>
             <h2>Precio unitario: ${filterItem[0][0].price}</h2>
-            <h3>Cantidad:  <Button variant="outline-dark" onClick={decrease}>-</Button> {contador}   <Button variant="outline-dark" onClick={increase}>+</Button> <a style={{color: "grey"}}>(Disponibles: {filterItem[0][0].stock}) </a></h3>
+            <h3>Cantidad:  <Button variant="outline-dark"  onClick={decrease}>-</Button>  {contador}   <Button variant="outline-dark" value={filterItem[0][0].stock} onClick={increase}>+</Button> <a style={{color: "grey"}}>(Disponibles: {filterItem[0][0].stock}) </a></h3>
           
            
           
