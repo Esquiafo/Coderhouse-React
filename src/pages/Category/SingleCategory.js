@@ -30,7 +30,7 @@ const SingleCategory = () => {
         </Header>
         <Divider clearing />
         <Link to={`/products/${x.id}`}>
-        <Image style={{height: "150px"}} src={`${x.img}`} rounded  centered />
+        <Image style={{height: "150px"}} src={`${x.img[0]}`} rounded  centered />
         </Link>
         <Divider clearing />
        
