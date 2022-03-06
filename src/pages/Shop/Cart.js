@@ -113,8 +113,7 @@ const handleName = (event) => {
   setName(event.target.value)
 }
 const handleEmail = (event) => {
-  console.log(userValue)
-  setEmail(event.target.value)
+    setEmail(event.target.value)
 }
 const handleValidEmail = (event) => {
   setValidemail(event.target.value)
@@ -332,7 +331,7 @@ const form = () =>{
       </Container>
     ) : (
     <div>
-      <h1>IMAGEN CARRITO VACIO</h1>
+        <Image  src="https://firebasestorage.googleapis.com/v0/b/artstation-c28e8.appspot.com/o/EmptyCart-icon.png?alt=media&token=d43cdead-fed5-434e-8d9d-616d04fde055" size="big" rounded  centered/>
     </div>
     )}
    </div>
