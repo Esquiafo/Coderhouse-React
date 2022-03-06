@@ -56,7 +56,7 @@ const SingleCategory = () => {
         </Header>
         <Divider clearing />
         
-        <Image style={{height: "150px"}} src={`${x.img}`} rounded  centered />
+        <Image style={{height: "150px"}} src={`${x.img[0]}`} rounded  centered />
 
         <Divider clearing />
       <div>

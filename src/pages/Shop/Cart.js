@@ -65,7 +65,7 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
       {lastValue!==undefined? (
       <Segment  style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
    <Container><Row style={{justifyContent: "center"}}>
-      <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img}`} rounded /></Col>
+      <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img[0]}`} rounded /></Col>
 
       <Col xs={6} sm={6} md={4} lg={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
 

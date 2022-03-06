@@ -25,7 +25,7 @@ const Items = () => {
         </Header>
         <Divider clearing />
         <Link to={`products/${product.id}`}>
-        <Image style={{height: "150px"}} src={`${product.img}`} rounded  centered />
+        <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
         </Link>
         <Divider clearing />
        
@@ -51,7 +51,7 @@ const Items = () => {
         </Header>
         <Divider clearing />
         
-        <Image style={{height: "150px"}} src={`${product.img}`} rounded  centered />
+        <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
 
         <Divider clearing />
       <div>
