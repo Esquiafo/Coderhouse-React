@@ -95,12 +95,7 @@ const Items = () => {
           </Container>
 
         </Col>
-
-       
-    
       )}
-
-
     </Row>
     </Container>
  

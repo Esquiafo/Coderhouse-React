@@ -5,7 +5,7 @@ import apiData from "../../Components/PushApi"
 import userData from "../../Components/UserApi"
 import ApiContext from '../../Context/ApiContext';
 import { Link } from 'react-router-dom';
-import { Input, Image, Form, Step, Icon, List, Label, Segment, Header } from 'semantic-ui-react';
+import { Input, Image, Form, Step, Icon, Label, Segment, Header } from 'semantic-ui-react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import "./Cart.css"
 import AOS from 'aos';
@@ -15,10 +15,10 @@ AOS.init({
 });
 
 const Cart = () =>{
-  const context = useContext(CartContext);
-  const contextApi = useContext(ApiContext);
-  const lastValue=finalData();
-  const userValue= userData();
+  const context = useContext(CartContext); //CONTEXT PARA PRODUCTOS
+  const contextApi = useContext(ApiContext); //CONTEXT PARA API
+  const lastValue=finalData(); //API PRODUCTOS
+  const userValue= userData(); //API USER DEV
   const increase = (h)=>{
     context.upCant(h.target.value)
   }
@@ -32,8 +32,8 @@ const Cart = () =>{
   let count = -1
   let id
   let cantidad
-  let items
-  let validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
+// Validadores de la API
+  let validEmail = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
   let validName = /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/.test(name)
   let validPhone = /\b(?:\d[ ]*?){6,}\b/.test(phone)
   let validEmailEmail = email == validemail
@@ -67,7 +67,7 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
    <Container><Row style={{justifyContent: "center"}}>
       <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img[0]}`} rounded /></Col>
 
-      <Col xs={6} sm={6} md={4} lg={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
+      <Col xs={6} sm={6} md={4} lg={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
 
       <Col  md={4} sm={6}lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}>
  
@@ -109,6 +109,7 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
   );
 
 })
+// Handler de elementos del formulario
 const handleName = (event) => {
   setName(event.target.value)
 }
@@ -127,7 +128,7 @@ const form = () =>{
   <div style={{margin: "10px 10px 10px 10px"}} className="ui form">
 
     <div className=" field col-xs-12">
- 
+      {/* Validaciones y formulario para la API */}
       {validName==true ? (
       <Form.Field
       required
@@ -318,6 +319,7 @@ const form = () =>{
 
             </Col>
             <Col>
+            {/* Si la paso todas las validaciones muestro el botom comprar */}
             { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
         <Link to='/'>
         <Button variant="success" onClick={exitCart}>Comprar</Button>

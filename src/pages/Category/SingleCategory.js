@@ -1,25 +1,23 @@
 import {useParams} from "react-router-dom"
 import finalData from "../../Components/ProductsApi"
 import { Link } from "react-router-dom";
-import {Image,  Segment, Label, Header, Divider, Table} from "semantic-ui-react"
+import {Image,  Segment, Label, Header, Divider} from "semantic-ui-react"
 import Category from "./Category";
 import {Container, Row, Col} from 'react-bootstrap'
+
 const SingleCategory = () => {
   const filterCategory = finalData()
   const value = useParams();
   const newArr=[]
   if (filterCategory!==undefined) {
+    //Filtro los elementos que son iguales al id ingresado por route
     filterCategory.filter(b=>b.category==value.categoryId ? newArr.push(b) : null)
   }
+  //Imprimo todos los elementos del elemento filtrado
   const lastFilter = newArr.map(x=> {
     return (
       <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '14rem'}} key={x.id}>
-      
-      
-     
 
-      
-      {/* CAMBIAR ACA */}
       {x.stock >=1 ? (
       <div> 
       <Col style={{paddingTop: '20px'}}>
@@ -71,24 +69,11 @@ const SingleCategory = () => {
       </Col> 
       </div> 
       )}  
-      
-
-
-  
-      
-        
-
-   
-       
-         
-     
    </div>
 
     )
   })
-  return (
-
-     
+  return (   
     <Container style={{
       maxWidth: '100%',
       paddingRight: '0px',

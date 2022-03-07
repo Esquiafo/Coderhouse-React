@@ -1,11 +1,8 @@
-import {Link, useParams} from "react-router-dom"
-import finalData from "../../Components/ProductsApi.js"
-import React, { useContext, useState,useRef} from 'react';
+import {Link} from "react-router-dom"
+import React from 'react';
 import FireBaseApi from "../../Components/ProductsApi.js";
-import CartContext from "../../Context/CartContext"
-import { Dimmer, Loader, Image, Segment, Icon, Table, Divider, Header, Label } from 'semantic-ui-react'
-import { Container, Row, Col, Button,Carousel } from 'react-bootstrap';
-import SwiperCore, { Navigation, Autoplay, Pagination, Scrollbar, A11y } from 'swiper';
+import { Image, Segment, Divider, Header } from 'semantic-ui-react'
+import { Navigation, Autoplay, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,8 +11,6 @@ import 'swiper/css';
 const IndexItem = () => {
   
   const data = FireBaseApi()
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
   let stockedProducts=[]
   let randomStocked
   let products=[]
@@ -34,11 +29,9 @@ const IndexItem = () => {
     }
       
     }
-    
+    //Mapeo los elementos random de la lista creada
     randomStocked = stockedProducts.map(product => {
       return (
-    
-     
 
      <SwiperSlide key={product.id}>
      <Segment>
@@ -56,15 +49,6 @@ const IndexItem = () => {
       </Segment>
 
      </SwiperSlide>
-
-   
-
-  
-      
-        
-
-   
- 
       );
     });
   }
@@ -85,8 +69,6 @@ const IndexItem = () => {
      
     >
       {randomStocked}
-      {/* <div ref={prevRef}>Prev</div>
-      <div ref={nextRef}>Next</div> */}
       </Swiper>
     </div>
         

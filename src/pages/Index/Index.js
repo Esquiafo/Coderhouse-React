@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import CategoryIn from "../Category/IndexCategory"
 import IndexItem from "../Products/IndexItem";

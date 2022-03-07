@@ -24,6 +24,7 @@ const CartContext = createContext({
         eliminarId (h) {
           this.items.splice(h,1)
         },
+        // Contador positivo carrito
         upCant (h) {
           console.log(h)
           if(this.items[h].cantidad==this.items[h].stock){
@@ -32,6 +33,7 @@ const CartContext = createContext({
             this.items[h].cantidad++
           }
         },
+         // Contador negativo carrito
         downCant (h) {
           this.items[h].cantidad--
           if (this.items[h].cantidad==0) {
