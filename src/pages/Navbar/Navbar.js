@@ -25,7 +25,7 @@ const Navigation= () =>{
         <Link  to="/">
         <div className="visible content">Inicio</div>
         <div className="hidden content">
-        <i className="right arrow icon"></i>
+        <i className="left arrow icon"></i>
         </div>
         </Link>  
         </Button>
@@ -37,9 +37,9 @@ const Navigation= () =>{
        <div style={{padding: '10px 0px 10px 0px'}}>
        <Button style={{width: '95%'}} className="btn ui animated button" type="button">
         <Link  to="/category">
-        <div className="visible content">Category</div>
+        <div className="visible content">Categorias</div>
         <div className="hidden content">
-        <i className="chat icon"></i>
+        <i className="tasks icon"></i>
         </div>
         </Link>
         </Button>  

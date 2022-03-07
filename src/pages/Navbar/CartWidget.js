@@ -7,12 +7,11 @@ const CartWidget= () =>{
   let itemspush = 0
   context.items.map(x => itemspush=x.cantidad+itemspush)
   return(
-   
 
   <Link to={"/cart"}>
 
   <div className="visible content">
-   Shop <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">{itemspush}</span>
+   Carrito &ensp;<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">{itemspush}</span>
 
   </div>
   <div className="hidden content">

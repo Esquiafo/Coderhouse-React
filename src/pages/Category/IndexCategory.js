@@ -1,7 +1,7 @@
 import data from "../../Components/ProductsApi"
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Button, Accordion  } from 'react-bootstrap';
-import { Dropdown, Menu, Sidebar, Segment, Icon, Header, Image, List } from "semantic-ui-react";
+import { Container, Row, Col  } from 'react-bootstrap';
+import {Image } from "semantic-ui-react";
 
 const IndexCategory = () => {
   const test = data()
@@ -34,29 +34,22 @@ const IndexCategory = () => {
     showCategory = arr.map(b=>{
       keya++
       return(
-        <div  key={b} >
-       
-       
+        <div  key={b} >      
         {arr.map((items, index) => {
   return (
   
  <div key={index}>
     <Container>
-    <Row xs={3} md={6} style={{display: 'flex', justifyContent: 'center'}}>
- 
-   
+    <Row xs={3} md={6} style={{display: 'flex', justifyContent: 'center'}}>  
     {Object.keys(items).map((index) => {
-      return (
-        
-        <div style={{margin: '20px 20px 20px 20px', textAlign: 'center'}} key={index}>
-           
+      return (      
+        <div style={{margin: '20px 20px 20px 20px', textAlign: 'center'}} key={index}>          
            <Col>
          { index!==undefined ? (    
            <h2><Link to={`/category/${index}`}>{index}</Link></h2>      
           ) : (
             null
-          )}
-   
+          )}  
            {items[index].map(x=>{
              return(
                <div key={x}>
@@ -67,27 +60,20 @@ const IndexCategory = () => {
              )
            })}
 
-</Col>
+    </Col>
           </div>
       )
     })}
-  
-
     </Row>
     </Container>
     </div>
   
   )
 })}
-      
-
       </div>
       )
     })
   }
-
-
-
   return (
     <div>
       {test!==undefined ? (
@@ -95,12 +81,6 @@ const IndexCategory = () => {
       <div>
           {showCategory} 
       </div>
-
-
-
-
-
-
 
       ) : (
      
