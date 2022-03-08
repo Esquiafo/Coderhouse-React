@@ -79,6 +79,7 @@ const Items = () => {
       paddingLeft: '0px',
       marginRight: 'auto',
       marginLeft: 'auto',
+      background: '#EAEAEA'
     }}>
       <Row>
       <Col md={2}> <Category /> </Col>

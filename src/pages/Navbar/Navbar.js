@@ -9,7 +9,7 @@ const Navigation= () =>{
   return (
    
 
-  <Navbar bg="light" expand="lg">
+  <Navbar style={{background: '#222222'}} expand="lg">
   <Container fluid style={{  justifyContent: 'center'}}>
     {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand> */}
     <Navbar.Toggle aria-controls="navbarScroll" />

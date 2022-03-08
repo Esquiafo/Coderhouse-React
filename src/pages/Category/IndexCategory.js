@@ -37,7 +37,7 @@ const IndexCategory = () => {
     //Mapeo las categorias filtradas y que sus marcas no se repiten
     showCategory = arr.map(b=>{
       return(
-        <div  key={b} >   
+        <div style={{background: 'white'}} key={b} >   
       {/* Mapeo el arr  */}   
         {arr.map((items, index) => {
   return (
@@ -86,6 +86,7 @@ const IndexCategory = () => {
       {test!==undefined ? (
 
       <div>
+        <h1 style={{textAlign: 'center'}}>Categorias </h1>
           {showCategory} 
       </div>
 

@@ -63,8 +63,14 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
     return (
     <div key={product.id}>
       {lastValue!==undefined? (
-      <Segment  style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
-   <Container><Row style={{justifyContent: "center"}}>
+      <Segment style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
+
+   <Container>
+     <Row style={{justifyContent: "center"}}>
+   <Link style={{textAlign: 'end'}} to="/cart">
+          
+          <Label style={{background: "#AC1C3C", color: 'white',  border: 'none'}}  circular onClick={deleteId} value={count}  key={'red'}>X</Label>
+          </Link>
       <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img[0]}`} rounded /></Col>
 
       <Col xs={6} sm={6} md={4} lg={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
@@ -84,10 +90,7 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
 
       <Col sm={6} md={8} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}><h2><Label tag size={'big'} as='a'>${(product.price)*(product.cantidad)}</Label></h2></Col>
       <Col sm={6}  md={4} lg={3}  style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}>
-                <Link  to="/cart">
-          
-                <Label circular color={'red'} onClick={deleteId} value={count}  key={'red'}>X</Label>
-                </Link>
+
 
       </Col>
     
@@ -125,7 +128,14 @@ const handlePhone = (event) => {
 const form = () =>{
   return(
 
-  <div style={{margin: "10px 10px 10px 10px"}} className="ui form">
+  <div style={{
+    background: 'white',
+    borderRadius: '10px',
+    paddingBottom: '10px',
+    padding: '10px 10px 10px 10px',
+    marginBottom: '10px'
+    
+        }} className="ui form">
 
     <div className=" field col-xs-12">
       {/* Validaciones y formulario para la API */}
@@ -226,6 +236,12 @@ const form = () =>{
         }}
         onChange={handlePhone}/>
       )}
+                 {/* Si la paso todas las validaciones muestro el botom comprar */}
+                 { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
+        <Link to='/'>
+        <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Comprar</Button>
+        </Link>
+     )}
     </div>
 
 
@@ -238,7 +254,7 @@ const form = () =>{
 
   return (
 
-    <div>
+    <div style={{background: '#EAEAEA'}}>
 
     {products.length!==0 ? (
     <Container>
@@ -251,7 +267,7 @@ const form = () =>{
       </Col >
       <Col style={{display: 'flex', justifyContent: 'center', paddingTop: '10px'}}> 
         <Link  to="/cart">
-           <Button variant="danger" onClick={fullClear} >Vaciar</Button>
+           <Button style={{background: '#AC1C3C', border: 'none'}}  onClick={fullClear} >Vaciar</Button>
         </Link>
       </Col>
      </Row>
@@ -265,9 +281,9 @@ const form = () =>{
       <Col md={12}>
             <Col> 
             
-            <Container>
+            <Container style={{padding: '10px'}}>
             <Row xs={2} md={2}>
-            <Step.Group widths={2}>
+            <Step.Group widths={2} style={{background: "white"}}>
             <Step >
 
             <Step.Content>
@@ -284,7 +300,7 @@ const form = () =>{
             </Row>
 
             <Row xs={2} md={2}>
-            <Step.Group widths={2}>
+            <Step.Group widths={2} style={{background: "white"}}>
             <Step >
 
             <Step.Content>
@@ -300,7 +316,7 @@ const form = () =>{
             </Step.Group>
             </Row>
             <Row xs={2} md={2}>
-            <Step.Group widths={2}>
+            <Step.Group widths={2} style={{background: "white"}}>
             <Step >
 
             <Step.Content>
@@ -319,12 +335,7 @@ const form = () =>{
 
             </Col>
             <Col>
-            {/* Si la paso todas las validaciones muestro el botom comprar */}
-            { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
-        <Link to='/'>
-        <Button variant="success" onClick={exitCart}>Comprar</Button>
-        </Link>
-     )}
+ 
             </Col>
       </Col>
     

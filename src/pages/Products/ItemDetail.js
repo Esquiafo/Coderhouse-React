@@ -60,25 +60,31 @@ const ItemDetail = () => {
 }
 
   return (
-    <div>
+    <div style={{padding: '10px',background: '#EAEAEA'}}>
      
      {filterItem.length!==0 ? (
       filterItem[0][0] == undefined ? (
+<div style={{heigth: '100%'}}>
         <h1>
           No disponible
         </h1>
+            <Link to={'/'}>
+            <Button> Volver</Button>  
+            </Link>  
+            
+</div>
       ) : (
         
         <div key={filterItem[0][0].id}>
-        <Container>
+        <Container >
           <Row style={{display: 'flex', justifyContent: "center"}}>
-            <Col xs={12} md={4}>
-            <Image  src={`${filterItem[0][0].img[0]}`} size="medium" rounded  centered/>
+            <Col style={{heigth: '10', background: 'white'}} xs={12} md={4}>
+            <Image src={`${filterItem[0][0].img[0]}`} size="medium" rounded  centered/>
             <h2>Precio unitario: ${filterItem[0][0].price}</h2>
             <h3>Cantidad:  <Button variant="outline-dark"  onClick={decrease}>-</Button>  {contador}   <Button variant="outline-dark" value={filterItem[0][0].stock} onClick={increase}>+</Button> <a style={{color: "grey"}}>(Disponibles: {filterItem[0][0].stock}) </a></h3>
       
             <Link to="/cart" >
-            <Button variant="success" onClick={onAdd} >Agregar al carrito</Button>
+            <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} variant="success" onClick={onAdd} >Agregar al carrito</Button>
             </Link>
         
             </Col>
@@ -87,10 +93,10 @@ const ItemDetail = () => {
               //En el caso de que no hayan datos cargados no sale este title 
               <h2 style={{textAlign: "center"}}>Faltan datos para completar la vista</h2 >
 
-            ) : (<div>
+            ) : (<div >
               
-              <Divider horizontal>
-               <Header as='h2'>
+              <Divider style={{background: "white", padding: "10px 0 10px 0"}} horizontal>
+               <Header  as='h2'>
                 <Icon name='bar chart' />
                 Especificaciones
                </Header>
