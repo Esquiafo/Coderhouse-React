@@ -92,7 +92,7 @@ const IndexCategory = () => {
 
       ) : (
      
-        <h1>Cargando</h1>
+     null
      
       )}
     </div>

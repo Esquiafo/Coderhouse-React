@@ -8,7 +8,7 @@ import ApiDolar from "../../Components/ApiDolar"
 
 const SingleCategory = () => {
   const filterCategory = finalData()
-  const dolarApi = ApiDOlar()
+  const dolarApi = ApiDolar()
   const value = useParams();
   const newArr=[]
   if (filterCategory!==undefined && dolarApi!==undefined) {

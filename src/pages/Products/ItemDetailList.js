@@ -86,8 +86,11 @@ const Items = () => {
       <Row>
       <Col md={2}> <Category /> </Col>
       {data===undefined ? (
-        <div>
-          Cargando
+        <div className="d-flex col-md-12  justify-content-center">
+          <br></br>
+        <div style={{width: "100px",  height: "100px"}}  className="spinner-border" role="status">
+          <span  className="visually-hidden">Loading...</span>
+        </div>
         </div>
       ) : (
         <Col md={10}>

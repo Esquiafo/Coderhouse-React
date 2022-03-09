@@ -12,8 +12,8 @@ const Navigation= () =>{
   <Navbar style={{background: '#222222'}} expand="lg">
   <Container fluid style={{  justifyContent: 'center'}}>
     {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand> */}
-    <Navbar.Toggle aria-controls="navbarScroll" />
-    <Navbar.Collapse id="navbarScroll">
+    <Navbar.Toggle  style={{ backgroundColor:'white'}}  aria-controls="navbarScroll" />
+    <Navbar.Collapse  id="navbarScroll">
       <Nav
         className="me-auto my-2 my-lg-0"
         navbarScroll

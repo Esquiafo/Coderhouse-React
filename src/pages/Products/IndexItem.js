@@ -54,29 +54,46 @@ const IndexItem = () => {
   }
   
   return (
+
+<div>
+{randomStocked!==undefined ? (
+
+  <div>
+  <h1 style={{textAlign: 'center'}}>Algunos productos</h1>
+  <Swiper
+   // install Swiper modules
+   modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+   spaceBetween={85}
+   navigation={true}
+   pagination={{ clickable: true }}
+   centeredSlides={true}
+   slidesPerView={1}
+   autoplay={{
+     delay: 3000,
+     disableOnInteraction: false
+   }}
+   
   
-    <div>
-     <h1 style={{textAlign: 'center'}}>Algunos productos</h1>
-     <Swiper
-      // install Swiper modules
-      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-      spaceBetween={85}
-      navigation={true}
-      pagination={{ clickable: true }}
-      centeredSlides={true}
-      slidesPerView={1}
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false
-      }}
-      
-     
-    >
-      {randomStocked}
-      </Swiper>
-    </div>
+ >
+   {randomStocked}
+   </Swiper>
+ </div>
+
+) : (
+
+  <div style={{textAlign: 'end'}}>
+  <br></br>
+<div style={{width: "100px",  height: "100px"}}  className="spinner-border" role="status">
+  <span  className="visually-hidden">Loading...</span>
+</div>
+</div>
+)}
+  
+
+
+
         
- 
+  </div>
   );
 };
 
