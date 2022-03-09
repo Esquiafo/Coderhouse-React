@@ -4,9 +4,10 @@ import React, { useContext, useState } from 'react';
 import CartContext from "../../Context/CartContext"
 import { Image, Segment, Icon, Divider, Header } from 'semantic-ui-react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
+import ApiDolar from '../../Components/ApiDolar'
 
 const ItemDetail = () => {
+  const dolarApi = ApiDolar()
   const ultimateData = finalData();
   const value = useParams();
   const [contador, setCounter] = useState(1);
@@ -21,12 +22,11 @@ const ItemDetail = () => {
     setCounter(contador==1 ? contador+0 : contador-1)
   }
   const onAdd = () =>{
-    ultimateData.find(x=> x.id==value.productId ? ( context.addItems({img: x.img, id: x.id, cantidad: contador, price:x.price, title: x.title, stock: x.stock }) ) : (null))
+    ultimateData.find(x=> x.id==value.productId ? ( context.addItems({img: x.img, id: x.id, cantidad: contador, price:x.price*dolarApi, title: x.title, stock: x.stock }) ) : (null))
   }
 
   let filterView
-
-  if (finalData()!==undefined) {
+  if (finalData()!==undefined && dolarApi!==undefined) {
     //Si el producto tiene stock entonces dejo crear la lista
     filterItem.push(ultimateData.filter(x=>x.id==value.productId && x.stock > 0))
     if (filterItem[0][0]!==undefined) {
@@ -80,7 +80,7 @@ const ItemDetail = () => {
           <Row style={{display: 'flex', justifyContent: "center"}}>
             <Col style={{heigth: '10', background: 'white'}} xs={12} md={4}>
             <Image src={`${filterItem[0][0].img[0]}`} size="medium" rounded  centered/>
-            <h2>Precio unitario: ${filterItem[0][0].price}</h2>
+            <h2>Precio unitario: ${dolarApi*filterItem[0][0].price}</h2>
             <h3>Cantidad:  <Button variant="outline-dark"  onClick={decrease}>-</Button>  {contador}   <Button variant="outline-dark" value={filterItem[0][0].stock} onClick={increase}>+</Button> <a style={{color: "grey"}}>(Disponibles: {filterItem[0][0].stock}) </a></h3>
       
             <Link to="/cart" >

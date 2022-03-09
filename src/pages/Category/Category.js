@@ -59,7 +59,7 @@ const Category = () => {
            {items[index].map(x=>{
             
              return(
-               <div key={x}>  
+               <div key={items+x}>  
                  <Menu.Item
               name={`X${x}`}
               />

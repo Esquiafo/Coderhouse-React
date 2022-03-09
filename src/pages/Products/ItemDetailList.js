@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import {Image,  Divider, Header, Segment, Label} from "semantic-ui-react"
 import Category from '../Category/Category'
 import { Container, Row, Col  } from 'react-bootstrap';
+import ApiDolar from "../../Components/ApiDolar"
 import AOS from 'aos';
 AOS.init();
 // className="justify-content-md-center"
 const Items = () => {
-  const data = FireBaseApi()
+  const data = FireBaseApi();
+  const dolarApi = ApiDolar();
   let products
-  if (data!==undefined) {
+  if (data!==undefined && dolarApi!==undefined) {
     products = data.map(product => {
       return (
     <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '14rem'}} key={product.id}>
@@ -33,7 +35,7 @@ const Items = () => {
         <div style={{display: "flex", justifyContent: "center"}}>
         
         <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-        <p> En stock | ${product.price}</p>
+        <p> En stock | ${product.price*dolarApi}</p>
         </div>
       </div>
       </div>
@@ -57,7 +59,7 @@ const Items = () => {
       <div>
         <div style={{display: "flex", justifyContent: "center"}}>
         <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-        <p> Sin stock | ${product.price}</p>
+        <p> Sin stock | ${product.price*dolarApi}</p>
         </div>
       </div>
       </div> 

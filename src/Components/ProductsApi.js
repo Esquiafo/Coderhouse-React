@@ -2,7 +2,7 @@
 import {  initializeApp } from "firebase/app"
 import { useState, useEffect } from 'react';
 import {collection, getFirestore, query, getDocs } from 'firebase/firestore';
-import axios from "axios";
+import ApiDolar from "./ApiDolar";
 
 const app = initializeApp({
     apiKey: "AIzaSyCX4jT-67GWc46D1Q6RZqXmW6Cyzd2vgl0",
@@ -17,7 +17,6 @@ const db = getFirestore();
 const FireBaseApi = () =>{
 
 const [data, setData] = useState();
-
 useEffect(() => {
   const getProducts = async () =>{
     //Creo Array Vacio
@@ -27,26 +26,14 @@ useEffect(() => {
       //Espero que se llene el dato
       const querySnapshot = await getDocs(q); 
       //De forma asincronica traigo otra api
+      querySnapshot.forEach((doc) => {
       arrEmp.push({...doc.data(),price: doc.data().price, id:doc.id}) 
+      })
       setData(arrEmp)
-      // axios({
-      //   url: "https://api.bluelytics.com.ar/v2/latest",
-      // })
-      // //Una vez que obtengo su resultado
-      //   .then((response) => {
-      //     //El primer query busco en sus elementos y empeizo a darle forma a mi objeto
-      //     querySnapshot.forEach((doc) => {
-      //       // Agrego los elementos a mi array vacio y multiplico el valor cargado en Firabase por lo que llega de la API
-            
-      //     })
-       
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });   
   }
   getProducts();
 },[]);
+
 return data
 }
 export default FireBaseApi;
