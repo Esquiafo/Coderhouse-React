@@ -2,9 +2,8 @@
 import {  initializeApp } from "firebase/app"
 import { useState, useEffect } from 'react';
 import {collection, getFirestore, query, getDocs } from 'firebase/firestore';
-import ApiDolar from "./ApiDolar";
 
-const app = initializeApp({
+initializeApp({
     apiKey: "AIzaSyCX4jT-67GWc46D1Q6RZqXmW6Cyzd2vgl0",
     authDomain: "artstation-c28e8.firebaseapp.com",
     projectId: "artstation-c28e8",

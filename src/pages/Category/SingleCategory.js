@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import {Image,  Segment, Label, Header, Divider} from "semantic-ui-react"
 import Category from "./Category";
 import {Container, Row, Col} from 'react-bootstrap'
+import ApiDolar from "../../Components/ApiDolar"
 
 const SingleCategory = () => {
   const filterCategory = finalData()
+  const dolarApi = ApiDOlar()
   const value = useParams();
   const newArr=[]
-  if (filterCategory!==undefined) {
+  if (filterCategory!==undefined && dolarApi!==undefined) {
     //Filtro los elementos que son iguales al id ingresado por route
     filterCategory.filter(b=>b.category==value.categoryId ? newArr.push(b) : null)
   }
@@ -36,7 +38,7 @@ const SingleCategory = () => {
         <div style={{display: "flex", justifyContent: "center"}}>
         
         <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-        <p> En stock | ${x.price}</p>
+        <p> En stock | ${x.price * dolarApi}</p>
         </div>
       </div>
       </div>
@@ -60,7 +62,7 @@ const SingleCategory = () => {
       <div>
         <div style={{display: "flex", justifyContent: "center"}}>
         <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-        <p> Sin stock | ${x.price}</p>
+        <p> Sin stock | ${x.price * dolarApi}</p>
         </div>
       </div>
       </div> 
