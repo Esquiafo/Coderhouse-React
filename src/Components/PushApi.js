@@ -1,6 +1,7 @@
 import {  initializeApp } from 'firebase/app';
-import { collection, addDoc, getFirestore, updateDoc,doc } from "firebase/firestore"; 
-
+import { collection, addDoc, getFirestore, updateDoc,doc,setDoc, query, getDocs } from "firebase/firestore"; 
+import UserPush from './UserPush'
+import {useEffect} from 'react'
 
 
 
@@ -15,11 +16,15 @@ const PushApi = (props) =>{
     });
 let finalPrice=0;
 props.items.map(x=>finalPrice=finalPrice+(x.price*x.cantidad))
-console.log(finalPrice)
 
  const db = getFirestore();
- 
 
+const customUser = {
+    email: props.email,
+    nombre: props.name,
+    telefono: props.telefono,
+}
+let purchaseId = []
 // Add a new document with a generated id.
 addDoc(collection(db, "order"), {
     
@@ -42,11 +47,34 @@ addDoc(collection(db, "order"), {
       });
     })
     
-    alert("Tu ID de compra es " + docRef.id)
+        const getUsers = async () =>{
+            const q = query(collection(db, "users"));
+            const querySnapshot = await getDocs(q);
+            const emailQuery = doc(db, 'users', `${props.email}`);
+            let isTruly = false
+            querySnapshot.forEach((doc) => {
+             if (doc.id==props.email) {
+              console.log("existo!")
+              setDoc(emailQuery, { ...doc.data(), purchase: [...doc.data().purchase, docRef.id] });
+               isTruly = true
+             }
+            })
+            if (isTruly==false) {
+            console.log("aca")
+            setDoc(emailQuery, { 
+                buyer: props.name,
+                phone: props.phone, 
+                email: props.email,
+                purchase: [docRef.id] });
+            }
+           
+        }
+        getUsers();
+  
+  
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
 });
-
 }
 export default PushApi;

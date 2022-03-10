@@ -8,6 +8,7 @@ import Product from "./pages/Products/ItemDetailList"
 import IndexCategory from "./pages/Category/IndexCategory"
 import SingleProduct from './pages/Products/ItemDetail';
 import SingleCategory from './pages/Category/SingleCategory';
+import ViewPurchase from './pages/User/ViewPurchase';
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
         <Route exact path="/category/:categoryId" component={SingleCategory} />
 
         <Route exact path="/cart" component={Cart} />
+
+        <Route exact path="/user/compras/:purchaseId" component={ViewPurchase} />
       </Switch>
     </Router>
   );

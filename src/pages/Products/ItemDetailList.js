@@ -5,6 +5,7 @@ import Category from '../Category/Category'
 import { Container, Row, Col  } from 'react-bootstrap';
 import ApiDolar from "../../Components/ApiDolar"
 import AOS from 'aos';
+// import UserApi from "../../Components/UserApi"
 AOS.init();
 // className="justify-content-md-center"
 const Items = () => {
@@ -14,7 +15,7 @@ const Items = () => {
   if (data!==undefined && dolarApi!==undefined) {
     products = data.map(product => {
       return (
-    <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '14rem'}} key={product.id}>
+    <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '25rem'}} key={product.id}>
       
       {/* CAMBIAR ACA */}
       {product.stock >=1 ? (

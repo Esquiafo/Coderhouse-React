@@ -249,7 +249,7 @@ const form = () =>{
         
         </Link>
        
-        <Button disable style={{width: '100%', background: 'grey', marginTop:'10px', border: 'none'}} onClick={mercadoLibre}>MercadoLibre</Button>
+        <Button style={{width: '100%', background: 'grey', marginTop:'10px', border: 'none'}} onClick={mercadoLibre}>MercadoLibre</Button>
         </div>
      )}
     </div>
