@@ -15,6 +15,8 @@ AOS.init({
 });
 
 const Cart = () =>{
+
+
   const context = useContext(CartContext); //CONTEXT PARA PRODUCTOS
   const contextApi = useContext(ApiContext); //CONTEXT PARA API
   const lastValue=finalData(); //API PRODUCTOS
@@ -37,7 +39,7 @@ const Cart = () =>{
   let validName = /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/.test(name)
   let validPhone = /\b(?:\d[ ]*?){6,}\b/.test(phone)
   let validEmailEmail = email == validemail
-
+  const costoEnvio = 1000
   const deleteId = (h)=>{
     context.eliminarId(h.target.value);
 }
@@ -53,7 +55,9 @@ const exitCart = ()=>{
   apiData(contextApi)
   context.clear()
 }
-
+const mercadoLibre = ()=>{
+  
+}
 let finalPrice = 0
 context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
   const products = context.items.map(product => {
@@ -238,9 +242,15 @@ const form = () =>{
       )}
                  {/* Si la paso todas las validaciones muestro el botom comprar */}
                  { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
+        <div>
         <Link to='/'>
-        <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Comprar</Button>
+        <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Transferencia</Button>
+
+        
         </Link>
+       
+        <Button disable style={{width: '100%', background: 'grey', marginTop:'10px', border: 'none'}} onClick={mercadoLibre}>MercadoLibre</Button>
+        </div>
      )}
     </div>
 
@@ -287,11 +297,10 @@ const form = () =>{
             <Step >
 
             <Step.Content>
-            <Step.Title>Precio base</Step.Title>
+            <Step.Title>Productos</Step.Title>
             </Step.Content>
             </Step>
             <Step >
-      
             <Step.Content>
             <Step.Title>${finalPrice}</Step.Title>
             </Step.Content>
@@ -302,35 +311,32 @@ const form = () =>{
             <Row xs={2} md={2}>
             <Step.Group widths={2} style={{background: "white"}}>
             <Step >
-
             <Step.Content>
-            <Step.Title>IVA 21%</Step.Title>
+            <Step.Title>Envio</Step.Title>
             </Step.Content>
             </Step>
             <Step >
-      
             <Step.Content>
-            <Step.Title>${finalPrice*0.21}</Step.Title>
+            <Step.Title>{finalPrice>10000 ? ("$0") : ('$1000')}</Step.Title>
             </Step.Content>
             </Step>
             </Step.Group>
             </Row>
+            
             <Row xs={2} md={2}>
             <Step.Group widths={2} style={{background: "white"}}>
             <Step >
-
             <Step.Content>
             <Step.Title>Precio final</Step.Title>
             </Step.Content>
             </Step>
             <Step >
-      
             <Step.Content>
-            <Step.Title>${(finalPrice+finalPrice*0.21).toFixed(2) }</Step.Title>
+            <Step.Title>${finalPrice>10000 ? (`${finalPrice}`) : (`${finalPrice+1000}`)}</Step.Title>
             </Step.Content>
             </Step>
             </Step.Group>
-             </Row>
+            </Row>
             </Container>
 
             </Col>

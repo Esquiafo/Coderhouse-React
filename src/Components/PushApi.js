@@ -15,6 +15,8 @@ const PushApi = (props) =>{
     });
 let finalPrice=0;
 props.items.map(x=>finalPrice=finalPrice+(x.price*x.cantidad))
+console.log(finalPrice)
+
  const db = getFirestore();
  
 
@@ -24,7 +26,7 @@ addDoc(collection(db, "order"), {
     buyer: props.name,
     items: props.items,
     date: new Date().toLocaleString() + "",
-    total: finalPrice, 
+    total: finalPrice<10000 ? finalPrice+1000 : finalPrice, 
     phone: props.phone, 
     email: props.email
   })
