@@ -1,9 +1,7 @@
 import {  initializeApp } from 'firebase/app';
+import React,{ useContext } from 'react';
 import { collection, addDoc, getFirestore, updateDoc,doc,setDoc, query, getDocs } from "firebase/firestore"; 
-import UserPush from './UserPush'
-import {useEffect} from 'react'
-
-
+import ApiContext from '../Context/ApiContext';
 
 const PushApi = (props) =>{
     const app = initializeApp({
@@ -16,15 +14,7 @@ const PushApi = (props) =>{
     });
 let finalPrice=0;
 props.items.map(x=>finalPrice=finalPrice+(x.price*x.cantidad))
-
  const db = getFirestore();
-
-const customUser = {
-    email: props.email,
-    nombre: props.name,
-    telefono: props.telefono,
-}
-let purchaseId = []
 // Add a new document with a generated id.
 addDoc(collection(db, "order"), {
     
@@ -37,16 +27,14 @@ addDoc(collection(db, "order"), {
   })
  
 .then(function(docRef) {
-    
     props.items.map(x=>{   
-
     let stocked = parseInt(x.cantidad);
     let productsUpdated = doc(db, "products", x.id)
     updateDoc(productsUpdated, {
         stock: (x.stock - stocked)
       });
     })
-    
+        
         const getUsers = async () =>{
             const q = query(collection(db, "users"));
             const querySnapshot = await getDocs(q);
@@ -54,27 +42,27 @@ addDoc(collection(db, "order"), {
             let isTruly = false
             querySnapshot.forEach((doc) => {
              if (doc.id==props.email) {
-              console.log("existo!")
               setDoc(emailQuery, { ...doc.data(), purchase: [...doc.data().purchase, docRef.id] });
                isTruly = true
              }
             })
             if (isTruly==false) {
-            console.log("aca")
             setDoc(emailQuery, { 
                 buyer: props.name,
                 phone: props.phone, 
                 email: props.email,
                 purchase: [docRef.id] });
             }
-           
+            
         }
         getUsers();
+        
   
   
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
 });
+
 }
 export default PushApi;

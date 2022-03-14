@@ -34,6 +34,7 @@ const Cart = () =>{
   let count = -1
   let id
   let cantidad
+  let var1 = true
 // Validadores de la API
   let validEmail = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
   let validName = /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/.test(name)
@@ -57,6 +58,14 @@ const exitCart = ()=>{
 }
 const mercadoLibre = ()=>{
   
+}
+let overLap = () => {
+  return(
+    <div style={{width: "100%", height: '800px', position: 'absolute', zIndex: '1', backgroundColor: "grey"}}>
+      
+    </div>
+
+  )
 }
 let finalPrice = 0
 context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
@@ -223,7 +232,7 @@ const form = () =>{
       required
       id='form-input-control-error-phone'
       control={Input}
-      label='Nombre completo'
+      label='Telefono'
       placeholder='Cosme Fulanito'
       onChange={handlePhone}/>
    
@@ -243,11 +252,12 @@ const form = () =>{
                  {/* Si la paso todas las validaciones muestro el botom comprar */}
                  { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
         <div>
-        <Link to='/'>
-        <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Transferencia</Button>
-
-        
+       
+        <Link to={'/cart'}>
+          <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Transferencia  </Button>
         </Link>
+
+       
        
         <Button style={{width: '100%', background: 'grey', marginTop:'10px', border: 'none'}} onClick={mercadoLibre}>MercadoLibre</Button>
         </div>
@@ -265,7 +275,13 @@ const form = () =>{
   return (
 
     <div style={{background: '#EAEAEA'}}>
-
+    {contextApi.lastPurchase!=="" ? (
+      <div>
+        {overLap()}
+      </div>
+    ) : (
+     null
+    )}
     {products.length!==0 ? (
     <Container>
       <Row style={{padding: '10px 0px 10px 0px'}}>
@@ -349,7 +365,7 @@ const form = () =>{
       </Row>
       </Container>
     ) : (
-    <div>
+    <div style={{position: 'relative'}}>
         <Image  src="https://firebasestorage.googleapis.com/v0/b/artstation-c28e8.appspot.com/o/EmptyCart-icon.png?alt=media&token=d43cdead-fed5-434e-8d9d-616d04fde055" size="big" rounded  centered/>
     </div>
     )}

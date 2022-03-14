@@ -6,7 +6,8 @@ const ApiContext = createContext({
     items: [],
     email: "",
     name: "",
-    phone: ""
+    phone: "",
+    lastPurchase: "",
 });
 
 export default ApiContext;
