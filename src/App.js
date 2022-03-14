@@ -27,6 +27,7 @@ function App() {
 
         <Route exact path="/cart" component={Cart} />
 
+        <Route path="/:userId/:purchaseId/" component={ViewPurchase} />
       </Switch>
     </Router>
   );

@@ -1,7 +1,10 @@
 import {  initializeApp } from 'firebase/app';
 import React,{ useContext } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import { collection, addDoc, getFirestore, updateDoc,doc,setDoc, query, getDocs } from "firebase/firestore"; 
 import ApiContext from '../Context/ApiContext';
+import { createBrowserHistory } from 'history';
 
 const PushApi = (props) =>{
     const app = initializeApp({
@@ -13,8 +16,11 @@ const PushApi = (props) =>{
         appId: "1:552661991680:web:13d9ecc1f0b81b2a86b3e5"
     });
 let finalPrice=0;
+const history = createBrowserHistory({forceRefresh:true});
+
 props.items.map(x=>finalPrice=finalPrice+(x.price*x.cantidad))
  const db = getFirestore();
+ let realId 
 // Add a new document with a generated id.
 addDoc(collection(db, "order"), {
     
@@ -27,6 +33,7 @@ addDoc(collection(db, "order"), {
   })
  
 .then(function(docRef) {
+    realId = docRef.id
     props.items.map(x=>{   
     let stocked = parseInt(x.cantidad);
     let productsUpdated = doc(db, "products", x.id)
@@ -54,6 +61,10 @@ addDoc(collection(db, "order"), {
                 purchase: [docRef.id] });
             }
             
+
+                {history.push(`/${props.email}/${docRef.id}`)}
+                {history.go(0)}
+
         }
         getUsers();
         
@@ -63,6 +74,6 @@ addDoc(collection(db, "order"), {
 .catch(function(error) {
     console.error("Error adding document: ", error);
 });
-
+return realId
 }
 export default PushApi;

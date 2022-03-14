@@ -12,9 +12,8 @@ const ViewPurchase = (props) =>{
     if (order !==undefined) {
         container = order.filter(x=>x.id == value.purchaseId)
         showContainer = container[0].items.map(x=> {
-            console.log(x)
             return(
-                <div>
+                <div key={x.id}>
                    <Segment style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
 
 <Container>

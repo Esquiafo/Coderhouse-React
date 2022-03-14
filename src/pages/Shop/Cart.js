@@ -4,9 +4,11 @@ import finalData from "../../Components/ProductsApi"
 import apiData from "../../Components/PushApi"
 import userData from "../../Components/UserApi"
 import ApiContext from '../../Context/ApiContext';
-import { Link } from 'react-router-dom';
+import { Link, Route, Redirect} from 'react-router-dom';
 import { Input, Image, Form, Step, Icon, Label, Segment, Header } from 'semantic-ui-react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+
+
 import "./Cart.css"
 import AOS from 'aos';
 AOS.init({
@@ -58,14 +60,6 @@ const exitCart = ()=>{
 }
 const mercadoLibre = ()=>{
   
-}
-let overLap = () => {
-  return(
-    <div style={{width: "100%", height: '800px', position: 'absolute', zIndex: '1', backgroundColor: "grey"}}>
-      
-    </div>
-
-  )
 }
 let finalPrice = 0
 context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
@@ -253,10 +247,9 @@ const form = () =>{
                  { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
         <div>
        
-        <Link to={'/cart'}>
+      
           <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Transferencia  </Button>
-        </Link>
-
+        
        
        
         <Button style={{width: '100%', background: 'grey', marginTop:'10px', border: 'none'}} onClick={mercadoLibre}>MercadoLibre</Button>
@@ -275,13 +268,10 @@ const form = () =>{
   return (
 
     <div style={{background: '#EAEAEA'}}>
-    {contextApi.lastPurchase!=="" ? (
-      <div>
-        {overLap()}
-      </div>
-    ) : (
-     null
-    )}
+<Route exact path="/">
+  {contextApi.lastPurchase!=='' ? <Redirect to="/dashboard" /> : null}
+</Route>
+
     {products.length!==0 ? (
     <Container>
       <Row style={{padding: '10px 0px 10px 0px'}}>

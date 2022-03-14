@@ -8,8 +8,6 @@ const Home = () => {
     <div style={{background: '#EAEAEA'}}>
      <Container>
        <Row>
-         
-       <Link to={`/leocapone@hotmail.com/xL7p2tdpWIwHADXsIJYl`}><h6 style={{justifyContent: 'center', display: 'flex'}}>A</h6></Link>
          <Col><IndexItem /></Col>
          <Col><IndexCategory /></Col>
        </Row>
