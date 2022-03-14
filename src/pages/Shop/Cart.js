@@ -4,8 +4,8 @@ import finalData from "../../Components/ProductsApi"
 import apiData from "../../Components/PushApi"
 import userData from "../../Components/UserApi"
 import ApiContext from '../../Context/ApiContext';
-import { Link, Route, Redirect} from 'react-router-dom';
-import { Input, Image, Form, Step, Icon, Label, Segment, Header } from 'semantic-ui-react';
+import { Link} from 'react-router-dom';
+import { Input, Image, Form, Step, Icon, Label, Segment, Header, Dimmer, Loader } from 'semantic-ui-react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
@@ -51,12 +51,14 @@ const Cart = () =>{
 }
 
 const exitCart = ()=>{
+  setShow(true)
   contextApi.items=context.items;
   contextApi.name=name;
   contextApi.email=email;
   contextApi.phone=phone;
   apiData(contextApi)
   context.clear()
+ 
 }
 const mercadoLibre = ()=>{
   
@@ -132,6 +134,8 @@ const handleValidEmail = (event) => {
 const handlePhone = (event) => {
   setPhone(event.target.value)
 }
+const [show, setShow] = useState(false);
+
 const form = () =>{
   return(
 
@@ -247,8 +251,10 @@ const form = () =>{
                  { (!validEmailEmail || !validName || !validPhone || !validEmail ) ? (null) : (
         <div>
        
-      
+                <Link to={'/cart'}>
+                  
           <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} onClick={exitCart}>Transferencia  </Button>
+                </Link>
         
        
        
@@ -266,11 +272,9 @@ const form = () =>{
 }
 
   return (
-
+   
     <div style={{background: '#EAEAEA'}}>
-<Route exact path="/">
-  {contextApi.lastPurchase!=='' ? <Redirect to="/dashboard" /> : null}
-</Route>
+    
 
     {products.length!==0 ? (
     <Container>
@@ -355,8 +359,23 @@ const form = () =>{
       </Row>
       </Container>
     ) : (
-    <div style={{position: 'relative'}}>
-        <Image  src="https://firebasestorage.googleapis.com/v0/b/artstation-c28e8.appspot.com/o/EmptyCart-icon.png?alt=media&token=d43cdead-fed5-434e-8d9d-616d04fde055" size="big" rounded  centered/>
+    <div>
+    {show==true ? (
+     
+      <Segment inverted
+      textAlign='center'
+      style={{ minHeight: 700, padding: '1em 0em' }}
+      vertical>
+      <Dimmer active>
+        <Loader>Redirigiendo aguarde unos segundos...</Loader>
+      </Dimmer>
+
+    </Segment>
+
+    ) : (
+      <Image  src="https://firebasestorage.googleapis.com/v0/b/artstation-c28e8.appspot.com/o/EmptyCart-icon.png?alt=media&token=d43cdead-fed5-434e-8d9d-616d04fde055" size="big" rounded  centered/>
+   
+    )}
     </div>
     )}
    </div>
