@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Coderhouse-React/static/css/main.62ad69ea.css",
-    "main.js": "/Coderhouse-React/static/js/main.7cc6053d.js",
+    "main.js": "/Coderhouse-React/static/js/main.ccd5680d.js",
     "static/js/787.18f58b0c.chunk.js": "/Coderhouse-React/static/js/787.18f58b0c.chunk.js",
     "static/media/brand-icons.svg": "/Coderhouse-React/static/media/brand-icons.57e963e3d6dd0a9cf051.svg",
     "static/media/icons.svg": "/Coderhouse-React/static/media/icons.b30fd8419d7e6d591885.svg",
@@ -21,11 +21,11 @@
     "static/media/outline-icons.woff2": "/Coderhouse-React/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/Coderhouse-React/index.html",
     "main.62ad69ea.css.map": "/Coderhouse-React/static/css/main.62ad69ea.css.map",
-    "main.7cc6053d.js.map": "/Coderhouse-React/static/js/main.7cc6053d.js.map",
+    "main.ccd5680d.js.map": "/Coderhouse-React/static/js/main.ccd5680d.js.map",
     "787.18f58b0c.chunk.js.map": "/Coderhouse-React/static/js/787.18f58b0c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.62ad69ea.css",
-    "static/js/main.7cc6053d.js"
+    "static/js/main.ccd5680d.js"
   ]
 }
