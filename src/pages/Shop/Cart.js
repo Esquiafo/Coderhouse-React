@@ -362,10 +362,10 @@ const form = () =>{
     <div>
     {show==true ? (
      
-      <Segment inverted
-      textAlign='center'
-      style={{ minHeight: 700, padding: '1em 0em' }}
-      vertical>
+        <Segment inverted
+        textAlign='center'
+        style={{ minHeight: 700, padding: '1em 0em' }}
+        vertical>
       <Dimmer active>
         <Loader>Redirigiendo aguarde unos segundos...</Loader>
       </Dimmer>
@@ -373,6 +373,7 @@ const form = () =>{
     </Segment>
 
     ) : (
+      
       <Image  src="https://firebasestorage.googleapis.com/v0/b/artstation-c28e8.appspot.com/o/EmptyCart-icon.png?alt=media&token=d43cdead-fed5-434e-8d9d-616d04fde055" size="big" rounded  centered/>
    
     )}

@@ -8,9 +8,9 @@ import 'aos/dist/aos.css';
 import "swiper/css/bundle";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  
+    <App />,
+ 
   document.getElementById('root')
 );
 

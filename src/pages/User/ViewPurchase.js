@@ -4,14 +4,15 @@ import { Input, Image, Form, Step, Icon, Label, Segment, Header } from 'semantic
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
-const ViewPurchase = (props) =>{
+const ViewPurchase = () =>{
     const value = useParams();
     const order = OrderApi();
     let container = []
     let showContainer
     if (order !==undefined) {
         container = order.filter(x=>x.id == value.purchaseId)
-        showContainer = container[0].items.map(x=> {
+        if (container[0]!==undefined) {
+          showContainer = container[0].items.map(x=> {
             return(
                 <div key={x.id}>
                    <Segment style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
@@ -37,11 +38,21 @@ const ViewPurchase = (props) =>{
                 </div>
             )
         })
+        }else{
+        
+            return(
+              <div>
+                <h1>No existe dicha compra con ese usuario</h1>
+              </div>
+            )
+          
+        }
+       
     }
-    console.log()
+   
 return(
     <div>
-        {order !==undefined ? (
+        {order !==undefined  ? (
            <div style={{paddingTop: '10px'}}>
                <Container>
                    <Row>
@@ -95,9 +106,12 @@ return(
                
             </div>
         ) : (
-            <div>
-                <h1>Cargando</h1>
-            </div>
+          <div style={{textAlign: 'center'}}>
+          <br></br>
+        <div style={{width: "100px",  height: "100px"}}  className="spinner-border" role="status">
+          <span  className="visually-hidden">Loading...</span>
+        </div>
+        </div>
         )}
     </div>
 )
