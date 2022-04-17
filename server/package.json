@@ -1,0 +1,41 @@
+{
+  "name": "imode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "homepage": "https://esquiafo.github.io/",
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.1.0",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"cd ../client && npm start\"",
+    "server": "node rooter"
+  },
+  "proxy": "http://localhost:5000",
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}
