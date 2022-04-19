@@ -9,7 +9,7 @@ import IndexCategory from "./pages/Category/IndexCategory"
 import SingleProduct from './pages/Products/ItemDetail';
 import SingleCategory from './pages/Category/SingleCategory';
 import ViewPurchase from './pages/User/ViewPurchase';
-import List from './pages/Shop/List';
+
 function App() {
 
   return (
@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/category/:categoryId" component={SingleCategory} />
 
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/list" component={List} />
+
         
         <Route path="/:userId/:purchaseId/" component={ViewPurchase} />
         

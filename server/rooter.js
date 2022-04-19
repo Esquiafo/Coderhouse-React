@@ -1,13 +1,21 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const path = require('path');
-
+const mysql = require('mysql2');
 const app = express();
+
+// Create the connection pool. The pool-specific settings are the defaults
+const con =  mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: "mydb"
+});
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
-// Add headers
-// Add headers
 
+// Add headers
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -26,15 +34,83 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-// An api endpoint that returns a short list of items
-app.get('/api/getList', (req,res) => {
+
+//Lector de CRUD
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//Buscar TODOS los ITEM
+app.get('/api/item', (req,res) => {
   
-    var list = ["Laura", "te", "amo"];
-    console.log(list)
-    res.json(list);
-    console.log('Sent list of items');
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query("SELECT * FROM item", function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
 });
 
+//Buscar ITEM por ID
+app.get('/api/item/:id', (req,res) => {
+  
+    let item = req.params.id
+    let sql = "SELECT * FROM item WHERE iditem = "+ mysql.escape(item);
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
+});
+
+//Eliminar por ID
+app.delete('/api/item/:id', (req,res) => {
+  
+    let item = req.params.id
+    let sql = "DELETE FROM item WHERE iditem = "+ mysql.escape(item);
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
+});
+
+// */*/*/*/*/*/*/*/* UPDATE Item /*/*/*/*/*/*/*/*/*
+app.put('/api/item/:id', (req,res) => {
+    
+    let item = req.params.id
+    let sql = "UPDATE item SET Title = '2080' WHERE iditem = "+ mysql.escape(item);
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
+});
+
+//Crear nuevo Item
+app.post('/api/item', (req,res) => {
+    console.log(req.body);
+    let rowTitle = []
+    let rowValues = []
+    Object.keys(req.body).map(function(key, index) {
+        rowTitle.push(String(key))
+        rowValues.push("'"+String(req.body[key])+"'")
+    });
+    con.connect(function(err) {
+        if (err) throw err;
+        var sql =  `INSERT INTO item (${rowTitle}) VALUES (${rowValues})`;
+        con.query(sql, function (err, result) {
+          if (err) throw err;
+          console.log("1 record inserted");
+        });
+      });
+});
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+"list"));
