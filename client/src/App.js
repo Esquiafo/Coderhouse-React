@@ -9,7 +9,12 @@ import IndexCategory from "./pages/Category/IndexCategory"
 import SingleProduct from './pages/Products/ItemDetail';
 import SingleCategory from './pages/Category/SingleCategory';
 import ViewPurchase from './pages/User/ViewPurchase';
-
+import Select from './pages/Admin/Select';
+import Crud from './pages/Admin/Crud';
+import FormGet from './pages/Admin/FormGet';
+import FormPost from './pages/Admin/FormPost';
+import FormPut from './pages/Admin/FormPut';
+import FormDelete from './pages/Admin/FormDelete';
 function App() {
 
   return (
@@ -26,8 +31,12 @@ function App() {
         <Route exact path="/category/:categoryId" component={SingleCategory} />
 
         <Route exact path="/cart" component={Cart} />
-
-        
+        <Route exact path="/admin" component={Select} />
+        <Route exact path="/admin/:type" component={Crud} />
+        <Route exact path="/admin/:type/get" component={FormGet} />
+        <Route exact path="/admin/:type/delete" component={FormDelete} />
+        <Route exact path="/admin/:type/put" component={FormPut} />
+        <Route exact path="/admin/:type/post" component={FormPost} />
         <Route path="/:userId/:purchaseId/" component={ViewPurchase} />
         
       </Switch>

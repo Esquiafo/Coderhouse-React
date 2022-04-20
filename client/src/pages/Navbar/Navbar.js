@@ -8,7 +8,6 @@ const Navigation= () =>{
   const context = useContext(CartContext)
   return (
    
-
   <Navbar style={{background: '#222222'}} expand="lg">
   <Container fluid style={{  justifyContent: 'center'}}>
     {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand> */}
@@ -31,7 +30,16 @@ const Navigation= () =>{
         </Button>
        </div>
 
-    
+       <div style={{padding: '10px 0px 10px 0px'}}>
+       <Button style={{width: '95%'}} className="btn ui animated button" type="button">
+        <Link  to="/admin">
+        <div className="visible content">Select</div>
+        <div className="hidden content">
+        <i className="left arrow icon"></i>
+        </div>
+        </Link>  
+        </Button>
+       </div>
  
 
        <div style={{padding: '10px 0px 10px 0px'}}>
