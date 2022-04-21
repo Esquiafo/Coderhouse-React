@@ -1,42 +1,56 @@
 import FireBaseApi from "../../Components/ProductsApi"
+import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
-import {Image,  Divider, Header, Segment, Label} from "semantic-ui-react"
+import {Image,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
 import Category from '../Category/Category'
 import { Container, Row, Col  } from 'react-bootstrap';
 import ApiDolar from "../../Components/ApiDolar"
 import AOS from 'aos';
+import axios from 'axios';
 // import UserApi from "../../Components/UserApi"
 AOS.init();
 // className="justify-content-md-center"
 const Items = () => {
-  const data = FireBaseApi();
   const dolarApi = ApiDolar();
+  const [value, setValue] = useState('')
+  useEffect(() => {
+    apiGetData();
+  },[]);
+  const apiGetData= () => {
+    axios.get(`http://localhost:5000/api/item/`)
+    .then((res) => {
+       setValue(res.data)
+    }).catch((err) => {
+        console.error(err);
+    });
+    }
   let products
-  if (data!==undefined && dolarApi!==undefined) {
-    products = data.map(product => {
+  if (value.length!==0 && dolarApi!==undefined) {
+    products = value.map(product => {
+      let newF1 = product.f1.split(" ")
+      let newF2 = product.f2.split(" ")
       return (
-    <div  data-aos-delay='50' data-aos='fade-up' data-aos-offset='100' style={{width: '25rem'}} key={product.id}>
+    <div  data-aos-delay='50' style={{width: '25rem'}} key={product.iditem}>
       
       {/* CAMBIAR ACA */}
       {product.stock >=1 ? (
       <div> 
-      <Col style={{paddingTop: '20px'}}>
+      <Col  style={{paddingTop: '20px'}}>
       <Segment>
         <div>
         <Header>
-        <Link to={`products/${product.id}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h6></Link>
+        <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}> {product.title} | Categoria: {product.category}</h6></Link>
         </Header>
         <Divider clearing />
-        <Link to={`products/${product.id}`}>
+        <Link to={`/products/${product.iditem}`}>
         <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
         </Link>
         <Divider clearing />
-       
         <div>
         <div style={{display: "flex", justifyContent: "center"}}>
         
         <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-        <p> En stock | ${product.price*dolarApi}</p>
+        <p> Stock: {product.stock} | ${product.price*dolarApi}</p>
         </div>
       </div>
       </div>
@@ -45,29 +59,30 @@ const Items = () => {
       </Col> 
       </div> 
       ) : (
-      <div>
-      <Col style={{paddingTop: '20px'}}> 
-        <Segment>
         <div> 
-        <Header>
-        <h6 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h6>
-        </Header>
-        <Divider clearing />
-        
-        <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
-
-        <Divider clearing />
-      <div>
-        <div style={{display: "flex", justifyContent: "center"}}>
-        <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-        <p> Sin stock | ${product.price*dolarApi}</p>
+        <Col  style={{paddingTop: '20px'}}>
+        <Segment>
+          <div>
+          <Header>
+          <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.iditem} | {product.title} | Categoria: {product.category}</h6></Link>
+          </Header>
+          <Divider clearing />
+          <Link to={`/products/${product.iditem}`}>
+          <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+          </Link>
+          <Divider clearing />
+          <div>
+          <div style={{display: "flex", justifyContent: "center"}}>
+          
+          <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
+          <p> Stock: {product.stock} | ${product.price*dolarApi}</p>
+          </div>
         </div>
-      </div>
-      </div> 
-      </Segment>
-      
-      </Col> 
-      </div> 
+        </div>
+        </Segment>
+        
+        </Col> 
+        </div> 
       )}  
    </div>
       );
@@ -86,7 +101,7 @@ const Items = () => {
     }}>
       <Row>
       <Col md={2}> <Category /> </Col>
-      {data===undefined ? (
+      {value===undefined ? (
         <div className="d-flex col-md-12  justify-content-center">
           <br></br>
         <div style={{width: "100px",  height: "100px"}}  className="spinner-border" role="status">

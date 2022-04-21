@@ -1,18 +1,28 @@
 import {Link, useParams} from "react-router-dom"
 import finalData from "../../Components/ProductsApi.js"
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CartContext from "../../Context/CartContext"
-import { Image, Segment, Icon, Divider, Header } from 'semantic-ui-react'
+import { Image, Segment, Icon, Divider, Header, Table, Label, Grid } from 'semantic-ui-react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import ApiDolar from '../../Components/ApiDolar'
-
+import axios from "axios"
 const ItemDetail = () => {
   const dolarApi = ApiDolar()
-  const ultimateData = finalData();
+  const [filter, setFilter] = useState('')
+  useEffect(() => {
+    ultimateData();
+  },[]);
+  const ultimateData= () => {
+    axios.get(`http://localhost:5000/api/item/id/${value.productId}`)
+    .then((res) => {
+       setFilter(res.data)
+    }).catch((err) => {
+        console.error(err);
+    });
+    }
   const value = useParams();
   const [contador, setCounter] = useState(1);
   let count=-1
-  const filterItem=[]
   
   const context = useContext(CartContext);
   const increase = (h)=>{
@@ -22,108 +32,102 @@ const ItemDetail = () => {
     setCounter(contador==1 ? contador+0 : contador-1)
   }
   const onAdd = () =>{
-    ultimateData.find(x=> x.id==value.productId ? ( context.addItems({img: x.img, id: x.id, cantidad: contador, price:x.price*dolarApi, title: x.title, stock: x.stock }) ) : (null))
+    context.addItems({img: filter.img, id: filter.iditem, cantidad: contador, price:filter.price*dolarApi, title: filter.title, stock: filter.stock }) 
   }
 
-  let filterView
-  if (finalData()!==undefined && dolarApi!==undefined) {
-    //Si el producto tiene stock entonces dejo crear la lista
-    filterItem.push(ultimateData.filter(x=>x.id==value.productId && x.stock > 0))
-    if (filterItem[0][0]!==undefined) {
-      if(filterItem[0][0].f1==undefined || filterItem[0][0].f2==undefined){
- 
-      }else{
-        filterView = filterItem[0][0].f1.map(x=>{
-          count++
-          
-          return(
-            <div key={count}>
+let products
+if (filter.length!==0 && dolarApi!==undefined) {
+  products = filter.map(product => {
+    let newF1 = product.f1.split(" ")
+    let newF2 = product.f2.split(" ")
+    return (
+  <div  data-aos-delay='50' style={{width: '25rem'}} key={product.iditem}>
+
+    {/* CAMBIAR ACA */}
+    {product.stock >=1 ? (
+    <div> 
+
+      <Col xs={12} md={6} >
+      <Header>
+      <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.iditem} | {product.title} | Categoria: {product.category}</h6></Link>
+      </Header>
+      <Divider clearing />
+      <Link to={`/products/${product.iditem}`}>
+      <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+      </Link>
+      <Divider clearing />
       
-  
-      <Segment clearing>
-      <Header as='h3' floated='left'>
-        <span>{x}</span>
-        <Divider  vertical />
-      </Header>
-       
-      <Header as='h3' floated='right' style={{backgroundColor: ""}}>
-      <Divider  vertical />
-       <span>{filterItem[0][0].f2[count]}</span>
-      </Header>
-    </Segment>        
-            </div>
-          )
-        })
-      }
-    }
+      <h3>Cantidad:  <Button variant="outline-dark"  onClick={decrease}>-</Button>  {contador}   <Button variant="outline-dark" value={filter.stock} onClick={increase}>+</Button> <a style={{color: "grey"}}>(Disponibles: {filter.stock}) </a></h3>
+      
+      <Link to="/cart" >
+      <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} variant="success" onClick={onAdd} >Agregar al carrito</Button>
+      </Link>
+      </Col>
+    
+      <Col xs={12} md={6} >
+    {(product.f1!==null && product.f2!==null) ?
 
-}
-
-  return (
-    <div style={{padding: '10px',background: '#EAEAEA'}}>
+      
+      <Table definition style={{height: '100%'}}>
+<Table.Body>
+  <Table.Row>
+    <Table.Cell width={1}>{newF1.map(x=>{
+      return(
+      <div style={{margin: 'auto'}} key={x}>
+        {x}
+        
+      </div>)
+    })}
+    </Table.Cell>
+    <Table.Cell width={1}>{newF2.map(b=>{
+      return(
+      <div  key={b}>
+        {b}
+      </div>)
+    })}
+    </Table.Cell>
+  </Table.Row>
+</Table.Body>
+</Table>
      
-     {filterItem.length!==0 ? (
-      filterItem[0][0] == undefined ? (
-<div style={{heigth: '100%'}}>
-        <h1>
-          No disponible
-        </h1>
-            <Link to={'/'}>
-            <Button> Volver</Button>  
-            </Link>  
-            
-</div>
-      ) : (
-        
-        <div key={filterItem[0][0].id}>
-        <Container >
-          <Row style={{display: 'flex', justifyContent: "center"}}>
-            <Col style={{heigth: '10', background: 'white'}} xs={12} md={4}>
-            <Image src={`${filterItem[0][0].img[0]}`} size="medium" rounded  centered/>
-            <h2>Precio unitario: ${dolarApi*filterItem[0][0].price}</h2>
-            <h3>Cantidad:  <Button variant="outline-dark"  onClick={decrease}>-</Button>  {contador}   <Button variant="outline-dark" value={filterItem[0][0].stock} onClick={increase}>+</Button> <a style={{color: "grey"}}>(Disponibles: {filterItem[0][0].stock}) </a></h3>
-      
-            <Link to="/cart" >
-            <Button style={{width: '100%', background: '#1C5D99',  border: 'none'}} variant="success" onClick={onAdd} >Agregar al carrito</Button>
-            </Link>
-        
-            </Col>
-            <Col  xs={12} md={8}>
-            {filterView==undefined ? (
-              //En el caso de que no hayan datos cargados no sale este title 
-              <h2 style={{textAlign: "center"}}>Faltan datos para completar la vista</h2 >
+  :
+  null 
+  }
+ 
+ </Col>
 
-            ) : (<div >
-              
-              <Divider style={{background: "white", padding: "10px 0 10px 0"}} horizontal>
-               <Header  as='h2'>
-                <Icon name='bar chart' />
-                Especificaciones
-               </Header>
-              </Divider>
-              {filterView}
-              </div>
-              )}    
-            </Col>
-          </Row>
-        </Container>
-          
 
-      </div>
-      )
+    </div> 
+    ) : (
+      <div> 
+    
+      No hay stock del producto
+
+      </div> 
+    )}  
+
+ </div>
+    );
+  });
+}
+  return (
+    <div>
+      {filter.length!==0 ? (
        
-      ) : (
-        
-        <div className="d-flex col-md-12  justify-content-center">
-          <br></br>
-        <div style={{width: "100px",  height: "100px"}}  className="spinner-border" role="status">
-          <span  className="visually-hidden">Loading...</span>
+        <div>
+                      <Container>
+          <Row xs={6}>
+            {products}
+            </Row>
+            </Container>
         </div>
-      </div>
-     )}
+        
+      ) : (<div>
+    vacio      
+      </div>)}
     </div>
   )
-
+     
   
 
 };

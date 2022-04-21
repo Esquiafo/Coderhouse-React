@@ -52,8 +52,8 @@ app.get('/api/item', (req,res) => {
 });
 
 //Buscar ITEM por ID
-app.get('/api/item/:id', (req,res) => {
-  
+app.get('/api/item/id/:id', (req,res) => {
+  console.log(req.params)
     let item = req.params.id
     let sql = "SELECT * FROM item WHERE iditem = "+ mysql.escape(item);
     con.connect(function(err) {
@@ -64,7 +64,42 @@ app.get('/api/item/:id', (req,res) => {
         });
       });
 });
-
+app.get('/api/item/price/:price', (req,res) => {
+  console.log(req.params)
+    let item = req.params.price
+    let sql = "SELECT * FROM item WHERE price = "+ mysql.escape(item);
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
+});
+app.get('/api/item/f2/:f2', (req,res) => {
+  console.log(req.params)
+    let item = req.params.f2
+    let sql = "SELECT * FROM item WHERE f2 = "+ mysql.escape(item);
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
+});
+app.get('/api/item/category/:category', (req,res) => {
+  console.log(req.params)
+    let item = req.params.category
+    let sql = "SELECT * FROM item WHERE category = "+ mysql.escape(item);
+    con.connect(function(err) {
+        if (err) throw err;
+        con.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          res.json(result); 
+        });
+      });
+});
 //Eliminar por ID
 app.delete('/api/item/:id', (req,res) => {
   
@@ -81,21 +116,24 @@ app.delete('/api/item/:id', (req,res) => {
 
 // */*/*/*/*/*/*/*/* UPDATE Item /*/*/*/*/*/*/*/*/*
 app.put('/api/item/:id', (req,res) => {
-    
-    let item = req.params.id
-    let sql = "UPDATE item SET Title = '2080' WHERE iditem = "+ mysql.escape(item);
-    con.connect(function(err) {
+  let item = req.params.id
+  Object.keys(req.body).map(function(key, index) {
+      con.connect(function(err) {
         if (err) throw err;
-        con.query(sql, function (err, result, fields) {
+        // let sql = "UPDATE item SET Title = '2080' WHERE iditem = "+ mysql.escape(item);
+        var sql =  `UPDATE item SET ${String(key)} = '${String(req.body[key])}' WHERE iditem = `+mysql.escape(item);
+        console.log(sql)
+        con.query(sql, function (err, result) {
           if (err) throw err;
-          res.json(result); 
+          console.log("1 record inserted");
         });
       });
+  });
+
 });
 
 //Crear nuevo Item
 app.post('/api/item', (req,res) => {
-    console.log(req.body);
     let rowTitle = []
     let rowValues = []
     Object.keys(req.body).map(function(key, index) {
