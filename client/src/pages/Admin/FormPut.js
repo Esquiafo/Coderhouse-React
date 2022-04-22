@@ -20,6 +20,15 @@ const FormPut = () => {
   const handleCategory = (event) => {
     setCategory(event.target.value)
   }
+  let [title, setTitle] = useState('')
+  const handleTitle = (event) => {
+    setTitle(event.target.value)
+  }
+  let [stock, setStock] = useState('')
+  const handleStock = (event) => {
+    setStock(event.target.value)
+  }
+  
   let [price, setPrice] = useState('')
   const handlePrice = (event) => {
     setPrice(event.target.value)
@@ -28,7 +37,13 @@ const FormPut = () => {
   const handleF2 = (event) => {
     setF2(event.target.value)
   }
-
+  let [f1, setF1] = useState('')
+  const handleF1 = (event) => {
+    setF1(event.target.value)
+  }
+  //Put sin fin
+  const res = () => axios.put(`http://localhost:5000/api/item/${id}`, { title: title=="" ? value.title : `${title}`, price: price=="" ? value.price : `${price}`, stock: stock=="" ? value.stock : `${stock}`, category: category=="" ? value.category : `${category}`, f1: f1=="" ? value.f1 : `${f1}`, f2: f2=="" ? value.f2 : `${f2}` });
+console.log()
 const byId= () => {
 axios.get(`http://localhost:5000/api/item/id/${id}`)
 .then((res) => {
@@ -44,101 +59,39 @@ axios.get(`http://localhost:5000/api/item/id/${id}`)
           let newF2 = product.f2.split(" ")
           return (
         <div  data-aos-delay='50' style={{width: '25rem'}} key={product.iditem}>
-          
-          {/* CAMBIAR ACA */}
-          {product.stock >=1 ? (
-          <div> 
-          <Col  style={{paddingTop: '20px'}}>
-          <Segment>
-            <div>
-            <Header>
-            <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.iditem} | {product.title} | Categoria: {product.category}</h6></Link>
-            </Header>
-            <Divider clearing />
-            <Link to={`/products/${product.iditem}`}>
-            <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
-            </Link>
-            <Divider clearing />
-            {(product.f1!==null && product.f2!==null) ?<Table definition>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell width={1}>{newF1.map(x=>{
-            return(
-            <div key={x}>
-              {x}
-            </div>)
-          })}
-          </Table.Cell>
-          <Table.Cell width={1}>{newF2.map(b=>{
-            return(
-            <div  key={b}>
-              {b}
-            </div>)
-          })}
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table> : null }
-            <Divider clearing />
-            <div>
-            <div style={{display: "flex", justifyContent: "center"}}>
-            
-            <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-            <p> Stock: {product.stock} | ${product.price*dolarApi}</p>
-            </div>
-          </div>
-          </div>
-          </Segment>
-          
-          </Col> 
-          </div> 
-          ) : (
-            <div> 
-            <Col  style={{paddingTop: '20px'}}>
-            <Segment>
-              <div>
-              <Header>
-              <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.iditem} | {product.title} | Categoria: {product.category}</h6></Link>
-              </Header>
-              <Divider clearing />
-              <Link to={`/products/${product.iditem}`}>
-              <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
-              </Link>
-              <Divider clearing />
-              {(product.f1!==null && product.f2!==null) ?<Table definition>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell width={1}>{newF1.map(x=>{
-              return(
-              <div key={x}>
-                {x}
-              </div>)
-            })}
-            </Table.Cell>
-            <Table.Cell width={1}>{newF2.map(b=>{
-              return(
-              <div  key={b}>
-                {b}
-              </div>)
-            })}
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table> : null }
-              <Divider clearing />
-              <div>
-              <div style={{display: "flex", justifyContent: "center"}}>
-              
-              <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-              <p> Stock: {product.stock} | ${product.price*dolarApi}</p>
-              </div>
-            </div>
-            </div>
-            </Segment>
-            
-            </Col> 
-            </div> 
-          )}  
+      <Form action={res}> 
+      <Form.Field
+      control={Input}
+      label='Titulo'
+      placeholder={product.title}
+      onChange={handleTitle}/>
+    <Form.Field
+      control={Input}
+      label='Price'
+      placeholder={product.price}
+      onChange={handlePrice}/>
+    <Form.Field
+      control={Input}
+      label='Stock'
+      placeholder={product.stock}
+      onChange={handleStock}/>
+   <Form.Field
+      control={Input}
+      label='Categoria'
+      placeholder={product.category}
+      onChange={handleCategory}/>
+    <Form.Field
+      control={Input}
+      label='Fila Izquierda'
+      placeholder={product.f1}
+      onChange={handleF1}/>
+    <Form.Field
+      control={Input}
+      label='Fila Derecha'
+      placeholder={product.f2}
+      onChange={handleF2}/>
+    <Button onClick={res} >Submit</Button>
+  </Form>
        </div>
           );
         });

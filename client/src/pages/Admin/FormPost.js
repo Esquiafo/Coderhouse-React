@@ -1,7 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Checkbox, Form } from 'semantic-ui-react'
-
+import axios from "axios"
 const FormPost = () => {
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState("");
+
+  const saveFile = (e) => {
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+  };
+
+  const uploadFile = async (e) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", fileName);
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/item",
+        formData
+      );
+      console.log(res);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
   return (
     <div style={{background: '#EAEAEA'}}>
     <Form action="http://localhost:5000/api/item" method="post"> 
@@ -30,8 +53,11 @@ const FormPost = () => {
       <input id="f2" type="text" name="f2" placeholder='f2' />
     </Form.Field>
     <Form.Field>
-      <Checkbox label='I agree to the Terms and Conditions' />
+    <label for="img">Imagen</label>
+    <input type="file" onChange={saveFile} multiple />
+    <button onClick={uploadFile}>Upload</button>
     </Form.Field> 
+   
     <Button type='submit' value="OK">Submit</Button>
   </Form>
     </div>

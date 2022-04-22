@@ -1,8 +1,10 @@
-const express = require('express');
-const bodyParser = require("body-parser");
-const path = require('path');
-const mysql = require('mysql2');
-const app = express();
+const express = require('express')
+const app = express()
+const mysql = require('mysql2')
+const multer = require('multer')
+const path = require('path')
+const cors = require("cors");
+const bodyParser = require('body-parser');
 
 // Create the connection pool. The pool-specific settings are the defaults
 const con =  mysql.createConnection({
@@ -11,10 +13,24 @@ const con =  mysql.createConnection({
   password: 'root',
   database: "mydb"
 });
+//! Use of Multer
+var storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+      callBack(null, './public/images/')     // './public/images/' directory name where save the file
+  },
+  filename: (req, file, callBack) => {
+      callBack(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
 
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
-
+var upload = multer({
+  storage: storage
+});
+//use express static folder
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
 // Add headers
 app.use(function (req, res, next) {
 
@@ -35,9 +51,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//Lector de CRUD
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
 
 //Buscar TODOS los ITEM
 app.get('/api/item', (req,res) => {
@@ -50,6 +64,7 @@ app.get('/api/item', (req,res) => {
         });
       });
 });
+
 
 //Buscar ITEM por ID
 app.get('/api/item/id/:id', (req,res) => {
@@ -133,9 +148,13 @@ app.put('/api/item/:id', (req,res) => {
 });
 
 //Crear nuevo Item
-app.post('/api/item', (req,res) => {
+app.post('/api/item', upload.single('img'), (req,res) => {
     let rowTitle = []
     let rowValues = []
+    if (req.file!==undefined) {
+      rowTitle.push("img")
+      rowValues.push(`'/images/${req.file.filename}'`)
+    }
     Object.keys(req.body).map(function(key, index) {
         rowTitle.push(String(key))
         rowValues.push("'"+String(req.body[key])+"'")

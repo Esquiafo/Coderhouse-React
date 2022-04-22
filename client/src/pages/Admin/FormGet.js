@@ -31,6 +31,7 @@ const FormGet = () => {
 const byId= () => {
 axios.get(`http://localhost:5000/api/item/id/${id}`)
 .then((res) => {
+  console.log(res.data)
    setValue(res.data)
 }).catch((err) => {
     console.error(err);
@@ -63,6 +64,8 @@ const byCategory= () => {
       let products
       if (value.length!==0 && dolarApi!==undefined) {
         products = value.map(product => {
+          console.log(product.img)
+          console.log(`http://localhost:5000${product.img}`)
           let newF1 = product.f1.split(" ")
           let newF2 = product.f2.split(" ")
           return (
@@ -79,7 +82,7 @@ const byCategory= () => {
             </Header>
             <Divider clearing />
             <Link to={`/products/${product.iditem}`}>
-            <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+            <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
             </Link>
             <Divider clearing />
             {(product.f1!==null && product.f2!==null) ?<Table definition>
@@ -125,7 +128,7 @@ const byCategory= () => {
               </Header>
               <Divider clearing />
               <Link to={`/products/${product.iditem}`}>
-              <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+              <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
               </Link>
               <Divider clearing />
               {(product.f1!==null && product.f2!==null) ?<Table definition>
