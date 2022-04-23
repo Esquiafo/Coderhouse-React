@@ -3,3 +3,7 @@
 /.pnp
 .pnp.js
 *.jpg
+server/node_modules/
+server/public/images
+*.jpeg
+*.png

@@ -130,38 +130,37 @@ app.delete('/api/item/:id', (req,res) => {
 });
 
 // */*/*/*/*/*/*/*/* UPDATE Item /*/*/*/*/*/*/*/*/*
-app.put('/api/item/:id', (req,res) => {
-  let item = req.params.id
+app.put('/api/item/:id',upload.single('img'), (req,res) => {
+  let item = parseInt(req.params.id)
+  let newChanges = []
   Object.keys(req.body).map(function(key, index) {
-      con.connect(function(err) {
-        if (err) throw err;
-        // let sql = "UPDATE item SET Title = '2080' WHERE iditem = "+ mysql.escape(item);
-        var sql =  `UPDATE item SET ${String(key)} = '${String(req.body[key])}' WHERE iditem = `+mysql.escape(item);
-        console.log(sql)
-        con.query(sql, function (err, result) {
-          if (err) throw err;
-          console.log("1 record inserted");
-        });
-      });
+    newChanges.push(`${String(key)} = '${String(req.body[key])}'`)
   });
-
+  con.connect(function(err) {
+      if (err) throw err;
+      var sql =  `UPDATE item SET img = '/images/${req.file.filename}', ${newChanges} WHERE (iditem = ` + mysql.escape(item)+")";
+      console.log(sql)
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      });
+    });
 });
 
 //Crear nuevo Item
 app.post('/api/item', upload.single('img'), (req,res) => {
     let rowTitle = []
     let rowValues = []
-    if (req.file!==undefined) {
-      rowTitle.push("img")
-      rowValues.push(`'/images/${req.file.filename}'`)
-    }
     Object.keys(req.body).map(function(key, index) {
         rowTitle.push(String(key))
         rowValues.push("'"+String(req.body[key])+"'")
     });
+    console.log(rowTitle)
+    console.log(rowValues)
     con.connect(function(err) {
         if (err) throw err;
-        var sql =  `INSERT INTO item (${rowTitle}) VALUES (${rowValues})`;
+        var sql =  `INSERT INTO item (img, ${rowTitle}) VALUES ('/images/${req.file.filename}',${rowValues})`;
+        console.log(sql)
         con.query(sql, function (err, result) {
           if (err) throw err;
           console.log("1 record inserted");

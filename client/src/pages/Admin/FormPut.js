@@ -16,6 +16,13 @@ const FormPut = () => {
   const handleId = (event) => {
     setId(event.target.value)
   }
+  const [img, setFile] = useState();
+
+  const saveFile = (e) => {
+    setFile(document.getElementById("img").files[0].name);
+    console.log( )
+  };
+
   let [category, setCategory] = useState('')
   const handleCategory = (event) => {
     setCategory(event.target.value)
@@ -42,8 +49,11 @@ const FormPut = () => {
     setF1(event.target.value)
   }
   //Put sin fin
-  const res = () => axios.put(`http://localhost:5000/api/item/${id}`, { title: title=="" ? value.title : `${title}`, price: price=="" ? value.price : `${price}`, stock: stock=="" ? value.stock : `${stock}`, category: category=="" ? value.category : `${category}`, f1: f1=="" ? value.f1 : `${f1}`, f2: f2=="" ? value.f2 : `${f2}` });
-console.log()
+  const res = () => {
+
+    axios.put(`http://localhost:5000/api/item/${id}`, { });
+
+  }
 const byId= () => {
 axios.get(`http://localhost:5000/api/item/id/${id}`)
 .then((res) => {
@@ -52,6 +62,39 @@ axios.get(`http://localhost:5000/api/item/id/${id}`)
     console.error(err);
 });
 }
+const onChange = (e) => {
+  let url = `http://localhost:5000/api/item/${id}`;
+  let file = e.target.files[0];
+  uploadFile(url, file);
+};
+
+const uploadFile = (url, file) => {
+  let formData = new FormData();
+  formData.append("img", file);
+  let bodyEntity = {        
+  title: title=="" ? value.title : `${title}`,
+  price: price=="" ? value.price : `${price}`, 
+  stock: stock=="" ? value.stock : `${stock}`, 
+  category: category=="" ? value.category : `${category}`, 
+  f1: f1=="" ? value.f1 : `${f1}`, 
+  f2: f2=="" ? value.f2 : `${f2}`}
+  Object.keys(bodyEntity).map(function(key, index) {
+    formData.append(String(key),String(bodyEntity[key]) )
+  })
+  axios.put(url, formData, {
+    
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: {
+
+      }
+    }).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error)
+    });
+};
       let products
       if (value.length!==0 && dolarApi!==undefined) {
         products = value.map(product => {
@@ -90,6 +133,17 @@ axios.get(`http://localhost:5000/api/item/id/${id}`)
       label='Fila Derecha'
       placeholder={product.f2}
       onChange={handleF2}/>
+       {/* <Form.Field
+      control={Input}
+      type='file'
+      label='Imagen'
+      id='img'
+      onChange={saveFile}
+      placeholder={product.img}
+      single
+      accept="image/png, image/jpeg, image/jpeg"
+      /> */}
+      <input type="file" onChange={onChange} accept ="image/*"/>
     <Button onClick={res} >Submit</Button>
   </Form>
        </div>
