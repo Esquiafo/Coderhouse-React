@@ -133,18 +133,46 @@ app.delete('/api/item/:id', (req,res) => {
 app.put('/api/item/:id',upload.single('img'), (req,res) => {
   let item = parseInt(req.params.id)
   let newChanges = []
+if (req.file==undefined) {
+
   Object.keys(req.body).map(function(key, index) {
-    newChanges.push(`${String(key)} = '${String(req.body[key])}'`)
+    if (req.body[key]!=='undefined') {
+      newChanges.push(`${String(key)} = '${String(req.body[key])}'`)
+    }
+    
   });
+  console.log(newChanges)
   con.connect(function(err) {
       if (err) throw err;
-      var sql =  `UPDATE item SET img = '/images/${req.file.filename}', ${newChanges} WHERE (iditem = ` + mysql.escape(item)+")";
+      var sql =  `UPDATE item SET ${newChanges} WHERE (iditem = ` + mysql.escape(item)+")";
       console.log(sql)
       con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("1 record inserted");
       });
     });
+}else{
+  Object.keys(req.body).map(function(key, index) {
+    if (req.body[key]!=='undefined') {
+      console.log(key + req.body[key])
+      newChanges.push(`${String(key)} = '${String(req.body[key])}'`)
+    }
+  });
+  con.connect(function(err) {
+    var sql
+      if (err) throw err;
+     if (newChanges!==undefined) {
+      sql = `UPDATE item SET img = '/images/${req.file.filename}' WHERE (iditem = ` + mysql.escape(item)+")";
+     }else{
+      sql = `UPDATE item SET img = '/images/${req.file.filename}', ${newChanges} WHERE (iditem = ` + mysql.escape(item)+")";
+     }
+      console.log(sql)
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      });
+    });
+}
 });
 
 //Crear nuevo Item
@@ -152,8 +180,11 @@ app.post('/api/item', upload.single('img'), (req,res) => {
     let rowTitle = []
     let rowValues = []
     Object.keys(req.body).map(function(key, index) {
+      if (req.body[key]!==undefined) {
         rowTitle.push(String(key))
         rowValues.push("'"+String(req.body[key])+"'")
+      }
+        
     });
     console.log(rowTitle)
     console.log(rowValues)

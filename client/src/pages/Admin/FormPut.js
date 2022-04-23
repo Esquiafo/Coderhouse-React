@@ -11,17 +11,16 @@ import ApiDolar from "../../Components/ApiDolar"
 const FormPut = () => {
   const dolarApi = ApiDolar();
   let [value, setValue] = useState('')
-  let newValues=[]
+  
   let [id, setId] = useState('')
   const handleId = (event) => {
     setId(event.target.value)
   }
-  const [img, setFile] = useState();
+  let url =`http://localhost:5000/api/item/${id}`;
+  const handleSet = () => {
+    uploadFile(url,img)
+  }
 
-  const saveFile = (e) => {
-    setFile(document.getElementById("img").files[0].name);
-    console.log( )
-  };
 
   let [category, setCategory] = useState('')
   const handleCategory = (event) => {
@@ -48,12 +47,7 @@ const FormPut = () => {
   const handleF1 = (event) => {
     setF1(event.target.value)
   }
-  //Put sin fin
-  const res = () => {
 
-    axios.put(`http://localhost:5000/api/item/${id}`, { });
-
-  }
 const byId= () => {
 axios.get(`http://localhost:5000/api/item/id/${id}`)
 .then((res) => {
@@ -62,10 +56,9 @@ axios.get(`http://localhost:5000/api/item/id/${id}`)
     console.error(err);
 });
 }
-const onChange = (e) => {
-  let url = `http://localhost:5000/api/item/${id}`;
-  let file = e.target.files[0];
-  uploadFile(url, file);
+const [img, setFile] = useState(undefined);
+const handleImg = (event) => {
+  setFile(event.target.files[0])
 };
 
 const uploadFile = (url, file) => {
@@ -98,11 +91,10 @@ const uploadFile = (url, file) => {
       let products
       if (value.length!==0 && dolarApi!==undefined) {
         products = value.map(product => {
-          let newF1 = product.f1.split(" ")
-          let newF2 = product.f2.split(" ")
+         
           return (
         <div  data-aos-delay='50' style={{width: '25rem'}} key={product.iditem}>
-      <Form action={res}> 
+      <Form> 
       <Form.Field
       control={Input}
       label='Titulo'
@@ -133,18 +125,9 @@ const uploadFile = (url, file) => {
       label='Fila Derecha'
       placeholder={product.f2}
       onChange={handleF2}/>
-       {/* <Form.Field
-      control={Input}
-      type='file'
-      label='Imagen'
-      id='img'
-      onChange={saveFile}
-      placeholder={product.img}
-      single
-      accept="image/png, image/jpeg, image/jpeg"
-      /> */}
-      <input type="file" onChange={onChange} accept ="image/*"/>
-    <Button onClick={res} >Submit</Button>
+      
+      <input type="file" onChange={handleImg} accept ="image/*"/>
+    <Button onClick={handleSet}>Submit</Button>
   </Form>
        </div>
           );
@@ -158,7 +141,7 @@ const uploadFile = (url, file) => {
       label='Buscar por ID'
       placeholder='ID'
       onChange={handleId}/>
-    <Button onClick={byId}>Submit</Button>
+    <Button onClick={byId}>Cargar</Button>
     
 
     {value.length !== 0 ? 
