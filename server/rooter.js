@@ -1,12 +1,20 @@
-const express = require('express')
-const app = express()
-const mysql = require('mysql2')
-const multer = require('multer')
-const path = require('path')
+const express = require('express');
+const fs = require('fs');
+const app = express();
+const multer = require('multer');
+const path = require('path');
 const cors = require("cors");
 const bodyParser = require('body-parser');
-//Middlewares
-const {apiDeleteById,apiGet,apiGetByCategory,apiGetById,apiGetByPrice,apiPost,apiPutById} = require('./middlewares/api/product/ApiControllerProduct');
+//Middlewares producto
+const {
+  DeleteById,
+  Get,
+  GetByCategory,
+  GetById,
+  GetByPrice,
+  Post,
+  PutById,
+  removeImg} = require('./middlewares/api/product/ApiControllerProduct');
 
 //! Use of Multer
 var storage = multer.diskStorage({
@@ -50,33 +58,39 @@ app.use(function (req, res, next) {
 
 //Buscar TODOS los ITEM
 app.get('/api/item', (req,res) => {
-  apiGet(req,res)
+  Get(req,res)
 });
 
 
 //Buscar ITEM por ID
 app.get('/api/item/id/:id', (req,res) => {
- apiGetById(req,res)
+ GetById(req,res)
 });
 app.get('/api/item/price/:price', (req,res) => {
-  apiGetByPrice(req,res)
+  GetByPrice(req,res)
 });
 app.get('/api/item/category/:category', (req,res) => {
-  apiGetByCategory(req,res)
+  GetByCategory(req,res)
 });
 //Eliminar por ID
 app.delete('/api/item/:id', (req,res) => {
-  apiDeleteById(req,res)
+  removeImg(req,res)
+  DeleteById(req,res)
 });
 
 // */*/*/*/*/*/*/*/* UPDATE Item /*/*/*/*/*/*/*/*/*
 app.put('/api/item/:id',upload.single('img'), (req,res) => {
-  apiPutById(req,res)
+  if (req.file!==undefined) {
+    removeImg(req,res)
+    PutById(req,res)
+  }else{
+    PutById(req,res)
+  }
 });
 
 //Crear nuevo Item
 app.post('/api/item', upload.single('img'), (req,res) => {
-    apiPost(req,res)
+    Post(req,res)
 });
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
