@@ -10,7 +10,7 @@ const con =  mysql.createConnection({
 
 
 module.exports = { 
-   Get(req,res) {
+  itemGet(req,res) {
       
       con.connect(function(err) {
           if (err) throw err;
@@ -20,7 +20,7 @@ module.exports = {
           });
         });
   },
-  GetById(req,res){
+  itemGetById(req,res){
     let item = req.params.id
     let sql = "SELECT * FROM item WHERE iditem = "+ mysql.escape(item);
     con.connect(function(err) {
@@ -31,7 +31,7 @@ module.exports = {
         });
       });
   },
-  GetByPrice(req,res){
+  itemGetByPrice(req,res){
     let item = req.params.price
     let sql = "SELECT * FROM item WHERE price = "+ mysql.escape(item);
     con.connect(function(err) {
@@ -42,7 +42,7 @@ module.exports = {
         });
       });
   },
- GetByCategory(req,res) {
+  itemGetByCategory(req,res) {
     let item = req.params.category
     let sql = "SELECT * FROM item WHERE category = "+ mysql.escape(item);
     con.connect(function(err) {
@@ -53,7 +53,7 @@ module.exports = {
         });
       });
   },
-   DeleteById(req,res){
+  itemDeleteById(req,res){
     let item = req.params.id
     let sql = "DELETE FROM item WHERE iditem = "+ mysql.escape(item);
     con.connect(function(err) {
@@ -65,7 +65,7 @@ module.exports = {
       });
   },
   
-   PutById(req,res) {
+  itemPutById(req,res) {
     
     let item = parseInt(req.params.id)
     let newChanges = []
@@ -108,7 +108,7 @@ module.exports = {
       });
   }
   },
-   Post(req,res) {
+  itemPost(req,res) {
     
     let item = parseInt(req.params.id)
     let newColumn = []
@@ -148,7 +148,7 @@ module.exports = {
   }
   
   },
-  removeImg(req,res){
+  itemRemoveImg(req,res){
     let item = parseInt(req.params.id)
 
     con.connect(function(err) {

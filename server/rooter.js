@@ -5,16 +5,40 @@ const multer = require('multer');
 const path = require('path');
 const cors = require("cors");
 const bodyParser = require('body-parser');
-//Middlewares producto
+//Middlewares product
 const {
-  DeleteById,
-  Get,
-  GetByCategory,
-  GetById,
-  GetByPrice,
-  Post,
-  PutById,
-  removeImg} = require('./middlewares/api/product/ApiControllerProduct');
+itemDeleteById,
+itemGet,
+itemGetByCategory,
+itemGetById,
+itemGetByPrice,
+itemPost,
+itemPutById,
+itemRemoveImg} = require('./middlewares/api/product/ApiControllerProduct');
+//Middlewares user
+const {
+  userDeleteById,
+  userDeleteByEmail,
+  userGet,
+  userGetByDocumento,
+  userGetById,
+  userGetByEmail,
+  userGetByTelefono,
+  userPost,
+  userPutById,
+  userPutByEmail} = require('./middlewares/api/user/ApiControllerUser');
+//Middlewares order
+const {
+  orderDeleteById,
+  orderDeleteByEmail,
+  orderGet,
+  orderGetByDocumento,
+  orderGetById,
+  orderGetByEmail,
+  orderGetByTelefono,
+  orderPost,
+  orderPutById,
+  orderPutByEmail} = require('./middlewares/api/order/ApiControllerUser');
 
 //! Use of Multer
 var storage = multer.diskStorage({
@@ -54,44 +78,123 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-
-//Buscar TODOS los ITEM
+//************COMEINAZO PATH PARA ITEM************//
+//Search TODOS los ITEM
 app.get('/api/item', (req,res) => {
-  Get(req,res)
+itemGet(req,res)
 });
-
-
-//Buscar ITEM por ID
+//Search ITEM por FILA
 app.get('/api/item/id/:id', (req,res) => {
- GetById(req,res)
+itemGetById(req,res)
 });
 app.get('/api/item/price/:price', (req,res) => {
-  GetByPrice(req,res)
+itemGetByPrice(req,res)
 });
 app.get('/api/item/category/:category', (req,res) => {
-  GetByCategory(req,res)
+itemGetByCategory(req,res)
 });
-//Eliminar por ID
+//Delete by ID
 app.delete('/api/item/:id', (req,res) => {
-  removeImg(req,res)
-  DeleteById(req,res)
+itemRemoveImg(req,res)
+itemDeleteById(req,res)
 });
-
-// */*/*/*/*/*/*/*/* UPDATE Item /*/*/*/*/*/*/*/*/*
+//Update
 app.put('/api/item/:id',upload.single('img'), (req,res) => {
   if (req.file!==undefined) {
-    removeImg(req,res)
-    PutById(req,res)
+  itemRemoveImg(req,res)
+  itemPutById(req,res)
   }else{
-    PutById(req,res)
+  itemPutById(req,res)
   }
 });
 
-//Crear nuevo Item
+//Create Item
 app.post('/api/item', upload.single('img'), (req,res) => {
-    Post(req,res)
+itemPost(req,res)
 });
+//************FIN PATH PARA ITEM************//
+
+//************COMIENZO PATH PARA USUSARIOS************//
+//Search TODOS los User
+app.get('/api/user', (req,res) => {
+  userGet(req,res)
+});
+//Search User por FILA
+app.get('/api/user/id/:id', (req,res) => {
+  userGetById(req,res)
+});
+app.get('/api/user/telefono/:telefono', (req,res) => {
+  userGetByTelefono(req,res)
+});
+app.get('/api/user/documento/:documento', (req,res) => {
+  userGetByDocumento(req,res)
+});
+app.get('/api/user/correo/:correo', (req,res) => {
+  userGetByEmail(req,res)
+});
+//Delete by ID
+app.delete('/api/user/email/:email', (req,res) => {
+  userDeleteByEmail(req,res)
+});
+//Delete by ID
+app.delete('/api/user/id/:id', (req,res) => {
+  userDeleteById(req,res)
+});
+//Update by ID
+app.put('/api/user/email/:id', (req,res) => {
+    userPutById(req,res)
+});
+//Update by Email
+app.put('/api/user/id/:id', (req,res) => {
+  userPutByEmail(req,res)
+});
+
+//Create User
+app.post('/api/user', (req,res) => {
+   userPost(req,res)
+});
+
+//************COMIENZO PATH PARA ORDERS************//
+//Search TODOS los User
+app.get('/api/order', (req,res) => {
+  orderGet(req,res)
+});
+//Search User por FILA
+app.get('/api/order/id/:id', (req,res) => {
+  orderGetById(req,res)
+});
+app.get('/api/order/telefono/:telefono', (req,res) => {
+  orderGetByTelefono(req,res)
+});
+app.get('/api/order/documento/:documento', (req,res) => {
+  orderGetByDocumento(req,res)
+});
+app.get('/api/order/correo/:correo', (req,res) => {
+  orderGetByEmail(req,res)
+});
+//Delete by ID
+app.delete('/api/order/email/:email', (req,res) => {
+  orderDeleteById(req,res)
+});
+//Delete by ID
+app.delete('/api/order/id/:id', (req,res) => {
+  orderDeleteById(req,res)
+});
+//Update
+app.put('/api/order/email/:id', (req,res) => {
+    orderPutById(req,res)
+});
+//Update
+app.put('/api/order/id/:id', (req,res) => {
+  orderPutByEmail(req,res)
+});
+
+//Create User
+app.post('/api/order', (req,res) => {
+   orderPost(req,res)
+});
+
+//************FIN PATH PARA USUSARIOS************//
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+"ERRORE"));
