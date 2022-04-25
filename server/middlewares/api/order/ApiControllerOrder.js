@@ -10,19 +10,19 @@ const con =  mysql.createConnection({
 
 
 module.exports = { 
-  userGet(req,res) {
+  orderGet(req,res) {
       
       con.connect(function(err) {
           if (err) throw err;
-          con.query("SELECT * FROM user", function (err, result, fields) {
+          con.query("SELECT * FROM order", function (err, result, fields) {
             if (err) throw err;
             res.json(result); 
           });
         });
   },
-  userGetById(req,res){
-    let user = req.params.id
-    let sql = "SELECT * FROM user WHERE iduser = "+ mysql.escape(user);
+  orderGetById(req,res){
+    let order = req.params.id
+    let sql = "SELECT * FROM order WHERE idorder = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -31,9 +31,9 @@ module.exports = {
         });
       });
   },
-  userGetByEmail(req,res){
-    let user = req.params.id
-    let sql = "SELECT * FROM user WHERE iduser = "+ mysql.escape(user);
+  orderGetByEmail(req,res){
+    let order = req.params.id
+    let sql = "SELECT * FROM order WHERE email = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -42,9 +42,9 @@ module.exports = {
         });
       });
   },
-userGetByDocumento(req,res){
-    let user = req.params.documento
-    let sql = "SELECT * FROM user WHERE documento = "+ mysql.escape(user);
+orderGetByUser(req,res){
+    let order = req.params.user
+    let sql = "SELECT * FROM order WHERE user = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -53,9 +53,9 @@ userGetByDocumento(req,res){
         });
       });
   },
-userGetByTelefono(req,res) {
-    let user = req.params.telefono
-    let sql = "SELECT * FROM user WHERE telefono = "+ mysql.escape(user);
+orderGetByTelefono(req,res) {
+    let order = req.params.telefono
+    let sql = "SELECT * FROM order WHERE telefono = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -64,20 +64,9 @@ userGetByTelefono(req,res) {
         });
       });
   },
-userDeleteById(req,res){
-    let user = req.params.id
-    let sql = "DELETE FROM user WHERE iduser = "+ mysql.escape(user);
-    con.connect(function(err) {
-        if (err) throw err;
-        con.query(sql, function (err, result, fields) {
-          if (err) throw err;
-          res.json(result); 
-        });
-      });
-  },
-  userDeleteByEmail(req,res){
-    let user = req.params.email
-    let sql = "DELETE FROM user WHERE email = "+ mysql.escape(user);
+orderDeleteById(req,res){
+    let order = req.params.id
+    let sql = "DELETE FROM order WHERE idorder = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -87,9 +76,9 @@ userDeleteById(req,res){
       });
   },
   
-userPutById(req,res) {
+orderPutById(req,res) {
     
-    let user = parseInt(req.params.id)
+    let order = parseInt(req.params.id)
     let newChanges = []
 
     Object.keys(req.body).map(function(key, index) {
@@ -101,7 +90,7 @@ userPutById(req,res) {
       var sql
         if (err) throw err;
       
-        sql = `UPDATE user SET ${newChanges} WHERE (iduser = ` + mysql.escape(user)+")";
+        sql = `UPDATE order SET ${newChanges} WHERE (idorder = ` + mysql.escape(order)+")";
       
         con.query(sql, function (err, result) {
           if (err) throw err;
@@ -110,9 +99,9 @@ userPutById(req,res) {
       });
   
   },
-  userPutByEmail(req,res) {
+  orderPutByEmail(req,res) {
     
-    let user = parseInt(req.params.email)
+    let order = parseInt(req.params.email)
     let newChanges = []
 
     Object.keys(req.body).map(function(key, index) {
@@ -124,7 +113,7 @@ userPutById(req,res) {
       var sql
         if (err) throw err;
       
-        sql = `UPDATE user SET ${newChanges} WHERE (email = ` + mysql.escape(user)+")";
+        sql = `UPDATE order SET ${newChanges} WHERE (email = ` + mysql.escape(order)+")";
       
         con.query(sql, function (err, result) {
           if (err) throw err;
@@ -133,7 +122,7 @@ userPutById(req,res) {
       });
   
   },
-  userPost(req,res) {
+  orderPost(req,res) {
     
     let newColumn = []
     let newValues = []
@@ -155,30 +144,4 @@ userPutById(req,res) {
   
   
   },
-// userRemoveImg(req,res){
-//     let user = parseInt(req.params.id)
-
-//     con.connect(function(err) {
-//       if (err) throw err;
-//       let sql = "SELECT img FROM user WHERE iduser = "+ mysql.escape(user);
-//       con.query(sql, function (err, result) {
-//         if (err) throw err;
-//         let path =  result[0].img;
-//         path == undefined || path=='-' 
-//         ?
-//         console.log("No hay imagen")
-//         :  
-//         fs.unlink(`./public/${path}`, function (err) {
-//           if (err) throw err;
-//           // if no error, file has been deleted successfully
-//           console.log('File deleted!');
-//       });
-
-        
-
-//       });
-
-//     });
-
-//   }
 }

@@ -30,15 +30,14 @@ const {
 //Middlewares order
 const {
   orderDeleteById,
-  orderDeleteByEmail,
   orderGet,
-  orderGetByDocumento,
+  orderGetByUser,
   orderGetById,
   orderGetByEmail,
   orderGetByTelefono,
   orderPost,
   orderPutById,
-  orderPutByEmail} = require('./middlewares/api/order/ApiControllerUser');
+  orderPutByEmail} = require('./middlewares/api/order/ApiControllerOrder');
 
 //! Use of Multer
 var storage = multer.diskStorage({
@@ -153,6 +152,7 @@ app.put('/api/user/id/:id', (req,res) => {
 app.post('/api/user', (req,res) => {
    userPost(req,res)
 });
+//************FIN PATH PARA USER************//
 
 //************COMIENZO PATH PARA ORDERS************//
 //Search TODOS los User
@@ -166,10 +166,10 @@ app.get('/api/order/id/:id', (req,res) => {
 app.get('/api/order/telefono/:telefono', (req,res) => {
   orderGetByTelefono(req,res)
 });
-app.get('/api/order/documento/:documento', (req,res) => {
-  orderGetByDocumento(req,res)
+app.get('/api/order/user/:user', (req,res) => {
+  orderGetByUser(req,res)
 });
-app.get('/api/order/correo/:correo', (req,res) => {
+app.get('/api/order/user/:user', (req,res) => {
   orderGetByEmail(req,res)
 });
 //Delete by ID
@@ -194,7 +194,7 @@ app.post('/api/order', (req,res) => {
    orderPost(req,res)
 });
 
-//************FIN PATH PARA USUSARIOS************//
+//************FIN PATH PARA ORDER************//
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+"ERRORE"));

@@ -9,12 +9,22 @@ import IndexCategory from "./pages/Category/IndexCategory"
 import SingleProduct from './pages/Products/ItemDetail';
 import SingleCategory from './pages/Category/SingleCategory';
 import ViewPurchase from './pages/User/ViewPurchase';
+//ADMIN VIEW
 import Select from './pages/Admin/Select';
 import Crud from './pages/Admin/Crud';
-import FormGet from './pages/Admin/FormGet';
-import FormPost from './pages/Admin/FormPost';
-import FormPut from './pages/Admin/FormPut';
-import FormDelete from './pages/Admin/FormDelete';
+//FORMS
+import ItemFormGet from './pages/Admin/Item/FormGet';
+import ItemFormPost from './pages/Admin/Item/FormPost';
+import ItemFormPut from './pages/Admin/Item/FormPut';
+import ItemFormDelete from './pages/Admin/Item/FormDelete';
+import UserFormGet from './pages/Admin/User/FormGet';
+import UserFormPost from './pages/Admin/User/FormPost';
+import UserFormPut from './pages/Admin/User/FormPut';
+import UserFormDelete from './pages/Admin/User/FormDelete';
+import OrderFormGet from './pages/Admin/Order/FormGet';
+import OrderFormPost from './pages/Admin/Order/FormPost';
+import OrderFormPut from './pages/Admin/Order/FormPut';
+import OrderFormDelete from './pages/Admin/Order/FormDelete';
 function App() {
 
   return (
@@ -24,21 +34,30 @@ function App() {
     </Switch>
       <Switch>
         <Route exact path="/" component={Index} />
-  
         <Route exact path="/products" component={Product}/>
         <Route exact path="/category" component={IndexCategory}/>
         <Route path="/products/:productId" component={SingleProduct}/>
         <Route exact path="/category/:categoryId" component={SingleCategory} />
-
         <Route exact path="/cart" component={Cart} />
+        <Route path="/:userId/:purchaseId/" component={ViewPurchase} />
+        {/* ADMIN */}
         <Route exact path="/admin" component={Select} />
         <Route exact path="/admin/:type" component={Crud} />
-        <Route exact path="/admin/:type/get" component={FormGet} />
-        <Route exact path="/admin/:type/delete" component={FormDelete} />
-        <Route exact path="/admin/:type/put" component={FormPut} />
-        <Route exact path="/admin/:type/post" component={FormPost} />
-        <Route path="/:userId/:purchaseId/" component={ViewPurchase} />
-        
+        {/* FORM ITEMS */}
+        <Route exact path="/admin/item/get" component={ItemFormGet} />
+        <Route exact path="/admin/item/delete" component={ItemFormDelete} />
+        <Route exact path="/admin/item/put" component={ItemFormPut} />
+        <Route exact path="/admin/item/post" component={ItemFormPost} />
+        {/* FORM USER */}
+        <Route exact path="/admin/user/get" component={UserFormGet} />
+        <Route exact path="/admin/user/delete" component={UserFormDelete} />
+        <Route exact path="/admin/user/put" component={UserFormPut} />
+        <Route exact path="/admin/user/post" component={UserFormPost} />
+        {/* FORM USER */}
+        <Route exact path="/admin/order/get" component={OrderFormGet} />
+        <Route exact path="/admin/order/delete" component={OrderFormDelete} />
+        <Route exact path="/admin/order/put" component={OrderFormPut} />
+        <Route exact path="/admin/order/post" component={OrderFormPost} />
       </Switch>
     </Router>
   );
