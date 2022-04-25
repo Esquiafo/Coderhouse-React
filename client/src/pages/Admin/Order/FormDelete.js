@@ -10,17 +10,24 @@ const FormDelete = () => {
   
 
 const byId= () => {
-axios.delete(`http://localhost:5000/api/item/${id}`)
+axios.delete(`http://localhost:5000/api/order/id/${id}`)
 .then((res) => {
     console.log(res)
 }).catch((err) => {
     console.error(err);
 });
 }
+
   return (
     <div style={{background: '#EAEAEA'}}>
       
      <Form.Field
+      control={Input}
+      label='Buscar por ID'
+      placeholder='ID'
+      onChange={handleId}/>
+    <Button onClick={byId}>Submit</Button>
+    <Form.Field
       control={Input}
       label='Buscar por ID'
       placeholder='ID'

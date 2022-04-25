@@ -1,15 +1,14 @@
 import React, {useState} from "react";
 import { Button, Checkbox, Form, Input} from 'semantic-ui-react'
 import axios from "axios";
-import FireBaseApi from "../../Components/ProductsApi"
+
 import { Link } from "react-router-dom";
 import {Image,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
-import Category from '../Category/Category'
+
 import { Container, Row, Col  } from 'react-bootstrap';
-import ApiDolar from "../../Components/ApiDolar"
+
 
 const FormPut = () => {
-  const dolarApi = ApiDolar();
   let [value, setValue] = useState('')
   
   let [id, setId] = useState('')
@@ -63,7 +62,7 @@ const handleImg = (event) => {
 
 const uploadFile = (url, file) => {
   let formData = new FormData();
-  formData.append("img", file);
+  formData.append('img', file);
   let bodyEntity = {        
   title: title=="" ? value.title : `${title}`,
   price: price=="" ? value.price : `${price}`, 
@@ -89,7 +88,7 @@ const uploadFile = (url, file) => {
     });
 };
       let products
-      if (value.length!==0 && dolarApi!==undefined) {
+      if (value.length!==0) {
         products = value.map(product => {
          
           return (

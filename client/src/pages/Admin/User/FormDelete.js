@@ -10,7 +10,7 @@ const FormDelete = () => {
   
 
 const byId= () => {
-axios.delete(`http://localhost:5000/api/item/${id}`)
+axios.delete(`http://localhost:5000/api/user/${id}`)
 .then((res) => {
     console.log(res)
 }).catch((err) => {

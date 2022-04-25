@@ -39,7 +39,7 @@ function App() {
         <Route path="/products/:productId" component={SingleProduct}/>
         <Route exact path="/category/:categoryId" component={SingleCategory} />
         <Route exact path="/cart" component={Cart} />
-        <Route path="/:userId/:purchaseId/" component={ViewPurchase} />
+        {/* <Route path="/:purchaseId/" component={ViewPurchase} /> */}
         {/* ADMIN */}
         <Route exact path="/admin" component={Select} />
         <Route exact path="/admin/:type" component={Crud} />

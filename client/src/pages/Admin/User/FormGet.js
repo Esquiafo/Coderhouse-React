@@ -1,14 +1,10 @@
 import React, {useState} from "react";
 import { Button, Checkbox, Form, Input} from 'semantic-ui-react'
 import axios from "axios";
-import FireBaseApi from "../../Components/ProductsApi"
 import { Link } from "react-router-dom";
 import {Image,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
-import Category from '../Category/Category'
 import { Container, Row, Col  } from 'react-bootstrap';
-import ApiDolar from "../../Components/ApiDolar"
 const FormGet = () => {
-  const dolarApi = ApiDolar();
   let [value, setValue] = useState('')
   let newValues=[]
   let [id, setId] = useState('')
@@ -46,7 +42,7 @@ const byCategory= () => {
   });
   }
   const byPrice= () => {
-    axios.get(`http://localhost:5000/api/item/price/${price}`)
+    axios.get(`http://localhost:5000/api/user/price/${price}`)
     .then((res) => {
        setValue(res.data)
     }).catch((err) => {
@@ -54,7 +50,7 @@ const byCategory= () => {
     });
     }
     const byF2= () => {
-      axios.get(`http://localhost:5000/api/item/f2/${f2}`)
+      axios.get(`http://localhost:5000/api/user/f2/${f2}`)
       .then((res) => {
          setValue(res.data)
       }).catch((err) => {
@@ -62,10 +58,8 @@ const byCategory= () => {
       });
       }
       let products
-      if (value.length!==0 && dolarApi!==undefined) {
+      if (value.length!==0 ) {
         products = value.map(product => {
-          console.log(product.img)
-          console.log(`http://localhost:5000${product.img}`)
           let newF1 = product.f1.split(" ")
           let newF2 = product.f2.split(" ")
           return (
@@ -110,7 +104,7 @@ const byCategory= () => {
             <div style={{display: "flex", justifyContent: "center"}}>
             
             <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-            <p> Stock: {product.stock} | ${product.price*dolarApi}</p>
+            <p> Stock: {product.stock} | ${product.price}</p>
             </div>
           </div>
           </div>
@@ -156,7 +150,7 @@ const byCategory= () => {
               <div style={{display: "flex", justifyContent: "center"}}>
               
               <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-              <p> Stock: {product.stock} | ${product.price*dolarApi}</p>
+              <p> Stock: {product.stock} | ${product.price}</p>
               </div>
             </div>
             </div>

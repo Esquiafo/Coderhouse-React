@@ -169,12 +169,8 @@ app.get('/api/order/telefono/:telefono', (req,res) => {
 app.get('/api/order/user/:user', (req,res) => {
   orderGetByUser(req,res)
 });
-app.get('/api/order/user/:user', (req,res) => {
+app.get('/api/order/email/:email', (req,res) => {
   orderGetByEmail(req,res)
-});
-//Delete by ID
-app.delete('/api/order/email/:email', (req,res) => {
-  orderDeleteById(req,res)
 });
 //Delete by ID
 app.delete('/api/order/id/:id', (req,res) => {

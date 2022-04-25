@@ -1,15 +1,10 @@
 import React, {useState} from "react";
 import { Button, Checkbox, Form, Input} from 'semantic-ui-react'
 import axios from "axios";
-import FireBaseApi from "../../Components/ProductsApi"
-import { Link } from "react-router-dom";
-import {Image,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
-import Category from '../Category/Category'
-import { Container, Row, Col  } from 'react-bootstrap';
-import ApiDolar from "../../Components/ApiDolar"
+
+
 const FormPost = () => {
 
-  const dolarApi = ApiDolar();
   let [value, setValue] = useState('')
   let newValues=[]
   let [id, setId] = useState('')
@@ -50,7 +45,7 @@ const FormPost = () => {
   }
 
 const onChange = (e) => {
-  let url = `http://localhost:5000/api/item/${id}`;
+  let url = `http://localhost:5000/api/user/${id}`;
   let file = e.target.files[0];
   uploadFile(url, file);
 };
