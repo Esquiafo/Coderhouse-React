@@ -32,10 +32,11 @@ const ItemDetail = () => {
     setCounter(contador==1 ? contador+0 : contador-1)
   }
   const onAdd = () =>{
-    context.addItems({img: filter.img, id: filter.iditem, cantidad: contador, price:filter.price*dolarApi, title: filter.title, stock: filter.stock }) 
+    context.addItems({img: `${filter[0].img}`, id: `${filter[0].iditem}`, cantidad: contador, price:`${filter[0].price*dolarApi}`, title: `${filter[0].title}`, stock: `${filter[0].stock}` }) 
   }
 
 let products
+console.log(filter)
 if (filter.length!==0 && dolarApi!==undefined) {
   products = filter.map(product => {
     let newF1 = product.f1.split(" ")
@@ -53,7 +54,7 @@ if (filter.length!==0 && dolarApi!==undefined) {
       </Header>
       <Divider clearing />
       <Link to={`/products/${product.iditem}`}>
-      <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+      <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
       </Link>
       <Divider clearing />
       

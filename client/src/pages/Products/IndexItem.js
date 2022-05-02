@@ -1,22 +1,30 @@
 import {Link} from "react-router-dom"
-import React from 'react';
-import FireBaseApi from "../../Components/ProductsApi.js";
+import React, {useState, useEffect} from 'react';
 import { Image, Segment, Divider, Header } from 'semantic-ui-react'
 import { Navigation, Autoplay, Pagination, Scrollbar, A11y } from 'swiper';
-
+import axios from 'axios'
 import { SwiperSlide, Swiper} from 'swiper/react';
 import 'swiper/css';
 import "swiper/css/navigation";
 
 const IndexItem = () => {
 
-  const data = FireBaseApi()
+  const [data, setValue] = useState(null);
+  useEffect(() => {
+     axios.get(`http://localhost:5000/api/item/`)
+ .then((res) => {
+   console.log(res.data)
+    setValue(res.data)
+ }).catch((err) => {
+     console.error(err);
+ });
+   }, []);
   let stockedProducts=[]
   let randomStocked
   let products=[]
   let randomPasado = []
-  if (data!==undefined) {
-   
+  if (data!==null) {
+    console.log(data)
     data.map(x=> x.stock>=1 ? products.push(x): null)
     while (stockedProducts.length < 5) {
      
@@ -33,15 +41,15 @@ const IndexItem = () => {
     randomStocked = stockedProducts.map(product => {
       return (
 
-     <SwiperSlide key={product.id}>
+     <SwiperSlide key={product.iditem}>
      <Segment>
         <div>
         <Header>
-        <Link to={`products/${product.id}`}><h4 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h4></Link>
+        <Link to={`products/${product.iditem}`}><h4 style={{justifyContent: 'center', display: 'flex'}}>{product.title}</h4></Link>
         </Header>
         <Divider clearing />
-        <Link to={`products/${product.id}`}>
-        <Image style={{height: "250px"}} src={`${product.img[0]}`} rounded  centered />
+        <Link to={`products/${product.iditem}`}>
+        <Image style={{height: "250px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
         </Link>
        
 

@@ -42,8 +42,8 @@ const Items = () => {
         <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}> {product.title} | Categoria: {product.category}</h6></Link>
         </Header>
         <Divider clearing />
-        <Link to={`/products/${product.iditem}`}>
-        <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+        <Link to={`./products/${product.iditem}`}>
+        <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
         </Link>
         <Divider clearing />
         <div>
@@ -68,7 +68,7 @@ const Items = () => {
           </Header>
           <Divider clearing />
           <Link to={`/products/${product.iditem}`}>
-          <Image style={{height: "150px"}} src={`${product.img[0]}`} rounded  centered />
+          <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
           </Link>
           <Divider clearing />
           <div>

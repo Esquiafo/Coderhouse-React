@@ -9,6 +9,10 @@ import IndexCategory from "./pages/Category/IndexCategory"
 import SingleProduct from './pages/Products/ItemDetail';
 import SingleCategory from './pages/Category/SingleCategory';
 import ViewPurchase from './pages/User/ViewPurchase';
+//USER VIEW
+import Login from './pages/User/Login'
+import SignUp from './pages/User/SignUp'
+import Panel from './pages/User/Panel'
 //ADMIN VIEW
 import Select from './pages/Admin/Select';
 import Crud from './pages/Admin/Crud';
@@ -40,6 +44,9 @@ function App() {
         <Route exact path="/category/:categoryId" component={SingleCategory} />
         <Route exact path="/cart" component={Cart} />
         {/* <Route path="/:purchaseId/" component={ViewPurchase} /> */}
+        <Route exact path="/user/" component={Login} />
+        <Route exact path="/user/create" component={SignUp} />
+        <Route exact path="/user/profile" component={Panel} />
         {/* ADMIN */}
         <Route exact path="/admin" component={Select} />
         <Route exact path="/admin/:type" component={Crud} />

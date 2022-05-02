@@ -134,12 +134,10 @@ userPutById(req,res) {
   
   },
   userPost(req,res) {
-    
+    console.log('aca')
     let newColumn = []
     let newValues = []
-
     Object.keys(req.body).map(function(key, index) {
-
         newColumn.push(`${String(key)}`)
         newValues.push(`'${String(req.body[key])}'`)
     })

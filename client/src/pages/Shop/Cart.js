@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import CartContext from '../../Context/CartContext';
 import finalData from "../../Components/ProductsApi"
 import apiData from "../../Components/PushApi"
@@ -7,7 +7,7 @@ import ApiContext from '../../Context/ApiContext';
 import { Link} from 'react-router-dom';
 import { Input, Image, Form, Step, Icon, Label, Segment, Header, Dimmer, Loader } from 'semantic-ui-react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
+import axios from "axios";
 
 import "./Cart.css"
 import AOS from 'aos';
@@ -18,10 +18,20 @@ AOS.init({
 
 const Cart = () =>{
 
-
+  const [lastValue, setValue] = useState('');
   const context = useContext(CartContext); //CONTEXT PARA PRODUCTOS
   const contextApi = useContext(ApiContext); //CONTEXT PARA API
-  const lastValue=finalData(); //API PRODUCTOS
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/item/`)
+.then((res) => {
+  console.log(res.data)
+   setValue(res.data)
+}).catch((err) => {
+    console.error(err);
+});
+  }, []);
+console.log(context)
+  
   const userValue= userData(); //API USER DEV
   const increase = (h)=>{
     context.upCant(h.target.value)
@@ -80,7 +90,7 @@ context.items.map(x=> finalPrice= finalPrice + (x.cantidad*x.price))
           
           <Label style={{background: "#AC1C3C", color: 'white',  border: 'none'}}  circular onClick={deleteId} value={count}  key={'red'}>X</Label>
           </Link>
-      <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`${product.img[0]}`} rounded /></Col>
+      <Col xs={6} sm={6} md={4} lg={3} style={{display: 'flex',paddingTop: '10px', justifyContent: 'center' }}><Image size='medium' src={`http://localhost:5000${product.img}`} rounded /></Col>
 
       <Col xs={6} sm={6} md={4} lg={3} className="text-break" style={{display: 'flex',paddingTop: '10px', justifyContent: 'center', marginTop: 'auto',   marginBottom: 'auto'}}><h2>{product.title}</h2></Col>
 
