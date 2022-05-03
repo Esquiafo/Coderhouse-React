@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import {Image,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
 import { Container, Row, Col  } from 'react-bootstrap';
-
+import SingleOrder from '../../Products/SingleOrder'
 const FormGet = () => {
   let [value, setValue] = useState('')
   let newValues=[]
@@ -64,60 +64,8 @@ const byTelefono= () => {
           return (
         <div  data-aos-delay='50' style={{width: '25rem'}} key={product.idorder}>
           
-          {/* CAMBIAR ACA */}
-          {product.stock >=1 ? (
-          <div> 
-          <Col  style={{paddingTop: '20px'}}>
-          <Segment>
-            <div>
-            <Header>
-            <Link to={`/products/${product.idorder}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.idorder} | {product.title} | Categoria: {product.telefono}</h6></Link>
-            </Header>
-            <Divider clearing />
-            <Link to={`/products/${product.idorder}`}>
-            </Link>
-            <Divider clearing />
-            <Header> {email}</Header>
-            <Divider clearing />
-            <div>
-            <div style={{display: "flex", justifyContent: "center"}}>
-            
-            <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-            <p> Stock: {product.stock} | ${product.user}</p>
-            </div>
-          </div>
-          </div>
-          </Segment>
-          
-          </Col> 
-          </div> 
-          ) : (
-            <div> 
-            <Col  style={{paddingTop: '20px'}}>
-            <Segment>
-              <div>
-              <Header>
-              <Link to={`/products/${product.idorder}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.idorder} | {product.title} | Categoria: {product.telefono}</h6></Link>
-              </Header>
-              <Divider clearing />
-              <Link to={`/products/${product.idorder}`}>
-              </Link>
-              <Divider clearing />
-              <Header>{email}</Header>
-              <Divider clearing />
-              <div>
-              <div style={{display: "flex", justifyContent: "center"}}>
-              
-              <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-              <p> Stock: {product.stock} | ${product.user}</p>
-              </div>
-            </div>
-            </div>
-            </Segment>
-            
-            </Col> 
-            </div> 
-          )}  
+            <SingleOrder order={product.idorder} />
+
        </div>
           );
         });
@@ -133,20 +81,20 @@ const byTelefono= () => {
     <Button onClick={byId}>Submit</Button>
     <Form.Field
       control={Input}
-      label='Buscar por Categoria'
-      placeholder='Categoria'
+      label='Buscar por Telefono'
+      placeholder='Telefono'
       onChange={handleTelefono}/>
     <Button onClick={byTelefono}>Submit</Button>
     <Form.Field
       control={Input}
-      label='Buscar por Precio'
-      placeholder='Precio'
+      label='Buscar por Usuario'
+      placeholder='Usuario'
       onChange={handleUser}/>
     <Button onClick={byUser}>Submit</Button>
     <Form.Field
       control={Input}
-      label='Buscar por Lista derecha'
-      placeholder='Lista derecha'
+      label='Buscar por Email'
+      placeholder='Email'
       onChange={handleEmail}/>
     <Button onClick={byEmail}>Submit</Button>
 

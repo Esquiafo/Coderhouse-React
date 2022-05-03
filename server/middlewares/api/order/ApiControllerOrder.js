@@ -32,7 +32,7 @@ module.exports = {
       });
   },
   orderGetByEmail(req,res){
-    let order = req.params.id
+    let order = req.params.email
     let sql = "SELECT * FROM purchase WHERE email = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
@@ -55,7 +55,7 @@ orderGetByUser(req,res){
   },
 orderGetByTelefono(req,res) {
     let order = req.params.telefono
-    let sql = "SELECT * FROM purchase WHERE telefono = "+ mysql.escape(order);
+    let sql = "SELECT * FROM purchase WHERE phone = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
