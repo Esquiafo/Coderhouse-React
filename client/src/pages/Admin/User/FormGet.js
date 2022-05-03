@@ -1,165 +1,97 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Button, Checkbox, Form, Input} from 'semantic-ui-react'
+import SingleOrder from '../../Products/SingleOrder'
+import Index from '../../Index/Index'
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {Image,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
+import {Card,  Divider, Header, Segment, Label, Table} from "semantic-ui-react"
 import { Container, Row, Col  } from 'react-bootstrap';
 const FormGet = () => {
   let [value, setValue] = useState('')
-  let newValues=[]
+  let [newValue, setNewValues]=useState('')
+  let purchaseList
   let [id, setId] = useState('')
   const handleId = (event) => {
     setId(event.target.value)
   }
-  let [category, setCategory] = useState('')
-  const handleCategory = (event) => {
-    setCategory(event.target.value)
+
+  let [email, setEmail] = useState('')
+  const handleEmail = (event) => {
+    setEmail(event.target.value)
   }
-  let [price, setPrice] = useState('')
-  const handlePrice = (event) => {
-    setPrice(event.target.value)
+  let [telefono, setTelefono] = useState('')
+  const handleTelefono = (event) => {
+    setTelefono(event.target.value)
   }
-  let [f2, setF2] = useState('')
-  const handleF2 = (event) => {
-    setF2(event.target.value)
+  let [documento, setDocumento] = useState('')
+  const handleDocumento = (event) => {
+    setDocumento(event.target.value)
   }
 
-const byId= () => {
-axios.get(`http://localhost:5000/api/item/id/${id}`)
-.then((res) => {
-  console.log(res.data)
-   setValue(res.data)
-}).catch((err) => {
-    console.error(err);
-});
-}
-const byCategory= () => {
-  axios.get(`http://localhost:5000/api/item/category/${category}`)
+  const byId= () => {
+  axios.get(`http://localhost:5000/api/user/id/${id}`)
   .then((res) => {
+
      setValue(res.data)
   }).catch((err) => {
       console.error(err);
   });
   }
-  const byPrice= () => {
-    axios.get(`http://localhost:5000/api/user/price/${price}`)
+  const byEmail= () => {
+    axios.get(`http://localhost:5000/api/user/email/${email}`)
     .then((res) => {
        setValue(res.data)
     }).catch((err) => {
         console.error(err);
     });
     }
-    const byF2= () => {
-      axios.get(`http://localhost:5000/api/user/f2/${f2}`)
+  const byTelefono= () => {
+      axios.get(`http://localhost:5000/api/user/telefono/${telefono}`)
       .then((res) => {
          setValue(res.data)
       }).catch((err) => {
           console.error(err);
       });
       }
+  const byDocumento= () => {
+        axios.get(`http://localhost:5000/api/user/documento/${documento}`)
+        .then((res) => {
+           setValue(res.data)
+        }).catch((err) => {
+            console.error(err);
+        });
+        }
+
       let products
+      
       if (value.length!==0 ) {
         products = value.map(product => {
-          let newF1 = product.f1.split(" ")
-          let newF2 = product.f2.split(" ")
+          purchaseList = product.compras.split(" ")
+
+           
+            
           return (
-        <div  data-aos-delay='50' style={{width: '25rem'}} key={product.iditem}>
-          
-          {/* CAMBIAR ACA */}
-          {product.stock >=1 ? (
-          <div> 
+        <div  data-aos-delay='50' style={{width: '25rem'}} key={product.iduser}>
           <Col  style={{paddingTop: '20px'}}>
-          <Segment>
-            <div>
-            <Header>
-            <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.iditem} | {product.title} | Categoria: {product.category}</h6></Link>
-            </Header>
-            <Divider clearing />
-            <Link to={`/products/${product.iditem}`}>
-            <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
-            </Link>
-            <Divider clearing />
-            {(product.f1!==null && product.f2!==null) ?<Table definition>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell width={1}>{newF1.map(x=>{
+          <Card>
+          <Card.Description>User ID: {product.iduser}</Card.Description>
+          <Card.Header> Nombre y Apellido: {product.nombre} {product.apellido}</Card.Header> 
+          <Card.Description>Email: {product.email}</Card.Description>
+          <Card.Description>Telefono: {product.telefono}</Card.Description>
+          <Card.Meta>Direccion: {product.direccion} | CP: {product.cp}</Card.Meta>
+          {purchaseList.map(x=>{
             return(
-            <div key={x}>
-              {x}
-            </div>)
-          })}
-          </Table.Cell>
-          <Table.Cell width={1}>{newF2.map(b=>{
-            return(
-            <div  key={b}>
-              {b}
-            </div>)
-          })}
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table> : null }
-            <Divider clearing />
-            <div>
-            <div style={{display: "flex", justifyContent: "center"}}>
-            
-            <Label style={{alignSelf: "center"}} circular color={'green'} empty key={'green'} /> 
-            <p> Stock: {product.stock} | ${product.price}</p>
-            </div>
-          </div>
-          </div>
-          </Segment>
-          
-          </Col> 
-          </div> 
-          ) : (
-            <div> 
-            <Col  style={{paddingTop: '20px'}}>
-            <Segment>
-              <div>
-              <Header>
-              <Link to={`/products/${product.iditem}`}><h6 style={{justifyContent: 'center', display: 'flex'}}>ID: {product.iditem} | {product.title} | Categoria: {product.category}</h6></Link>
-              </Header>
-              <Divider clearing />
-              <Link to={`/products/${product.iditem}`}>
-              <Image style={{height: "150px"}} src={`http://localhost:5000${product.img}`} rounded  centered />
-              </Link>
-              <Divider clearing />
-              {(product.f1!==null && product.f2!==null) ?<Table definition>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell width={1}>{newF1.map(x=>{
-              return(
               <div key={x}>
-                {x}
-              </div>)
-            })}
-            </Table.Cell>
-            <Table.Cell width={1}>{newF2.map(b=>{
-              return(
-              <div  key={b}>
-                {b}
-              </div>)
-            })}
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table> : null }
-              <Divider clearing />
-              <div>
-              <div style={{display: "flex", justifyContent: "center"}}>
-              
-              <Label style={{alignSelf: "center"}} circular color={'red'} empty key={'red'} /> 
-              <p> Stock: {product.stock} | ${product.price}</p>
+                <SingleOrder order={x} />
               </div>
-            </div>
-            </div>
-            </Segment>
-            
-            </Col> 
-            </div> 
-          )}  
-       </div>
+            )}
+            )}
+          
+
+          </Card>
+
+          </Col>
+        </div>
           );
         });
       }
@@ -174,22 +106,22 @@ const byCategory= () => {
     <Button onClick={byId}>Submit</Button>
     <Form.Field
       control={Input}
-      label='Buscar por Categoria'
-      placeholder='Categoria'
-      onChange={handleCategory}/>
-    <Button onClick={byCategory}>Submit</Button>
+      label='Buscar por Email'
+      placeholder='Email'
+      onChange={handleEmail}/>
+    <Button onClick={byEmail}>Submit</Button>
     <Form.Field
       control={Input}
-      label='Buscar por Precio'
-      placeholder='Precio'
-      onChange={handlePrice}/>
-    <Button onClick={byPrice}>Submit</Button>
+      label='Buscar por Telefono'
+      placeholder='Telefono'
+      onChange={handleTelefono}/>
+    <Button onClick={byTelefono}>Submit</Button>
     <Form.Field
       control={Input}
-      label='Buscar por Lista derecha'
-      placeholder='Lista derecha'
-      onChange={handleF2}/>
-    <Button onClick={byF2}>Submit</Button>
+      label='Buscar por Lista Documento'
+      placeholder='Lista Documento'
+      onChange={handleDocumento}/>
+    <Button onClick={byDocumento}>Submit</Button>
 
     {value.length !== 0 ? 
       

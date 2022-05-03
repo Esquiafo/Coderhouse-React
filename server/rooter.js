@@ -128,7 +128,7 @@ app.get('/api/user/telefono/:telefono', (req,res) => {
 app.get('/api/user/documento/:documento', (req,res) => {
   userGetByDocumento(req,res)
 });
-app.get('/api/user/correo/:correo', (req,res) => {
+app.get('/api/user/email/:email', (req,res) => {
   userGetByEmail(req,res)
 });
 //Delete by ID
@@ -137,14 +137,15 @@ app.delete('/api/user/email/:email', (req,res) => {
 });
 //Delete by ID
 app.delete('/api/user/id/:id', (req,res) => {
+  console.log('id')
   userDeleteById(req,res)
 });
 //Update by ID
-app.put('/api/user/email/:id', (req,res) => {
+app.put('/api/user/id/:id', (req,res) => {
     userPutById(req,res)
 });
 //Update by Email
-app.put('/api/user/id/:id', (req,res) => {
+app.put('/api/user/email/:email', (req,res) => {
   userPutByEmail(req,res)
 });
 

@@ -1,6 +1,7 @@
 
 const mysql = require('mysql2');
 var fs = require('fs');
+const md5 = require('md5')
 const con =  mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -32,8 +33,8 @@ module.exports = {
       });
   },
   userGetByEmail(req,res){
-    let user = req.params.id
-    let sql = "SELECT * FROM user WHERE iduser = "+ mysql.escape(user);
+    let user = req.params.email
+    let sql = "SELECT * FROM user WHERE email = "+ mysql.escape(user);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -67,6 +68,7 @@ userGetByTelefono(req,res) {
 userDeleteById(req,res){
     let user = req.params.id
     let sql = "DELETE FROM user WHERE iduser = "+ mysql.escape(user);
+    console.log(sql)
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -99,6 +101,7 @@ userPutById(req,res) {
     });
     con.connect(function(err) {
       var sql
+      console.log(newChanges)
         if (err) throw err;
       
         sql = `UPDATE user SET ${newChanges} WHERE (iduser = ` + mysql.escape(user)+")";

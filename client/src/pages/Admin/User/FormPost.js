@@ -11,67 +11,62 @@ const FormPost = () => {
   const handleId = (event) => {
     setId(event.target.value)
   }
-  const [img, setFile] = useState();
 
-  const saveFile = (e) => {
-    setFile(document.getElementById("img").files[0].name);
-    console.log( )
-  };
-
-  let [category, setCategory] = useState('')
-  const handleCategory = (event) => {
-    setCategory(event.target.value)
+  let [direccion, setDireccion] = useState('')
+  const handleDireccion = (event) => {
+    setDireccion(event.target.value)
   }
-  let [title, setTitle] = useState('')
-  const handleTitle = (event) => {
-    setTitle(event.target.value)
+  let [nombre, setNombre] = useState('')
+  const handleNombre = (event) => {
+    setNombre(event.target.value)
   }
-  let [stock, setStock] = useState('')
-  const handleStock = (event) => {
-    setStock(event.target.value)
+  let [documento, setDocumento] = useState('')
+  const handleDocumento = (event) => {
+    setDocumento(event.target.value)
   }
   
-  let [price, setPrice] = useState('')
-  const handlePrice = (event) => {
-    setPrice(event.target.value)
+  let [apellido, setApellido] = useState('')
+  const handleApellido = (event) => {
+    setApellido(event.target.value)
   }
-  let [f2, setF2] = useState('')
-  const handleF2 = (event) => {
-    setF2(event.target.value)
+  let [email, setEmail] = useState('')
+  const handleEmail = (event) => {
+    setEmail(event.target.value)
   }
-  let [f1, setF1] = useState('')
-  const handleF1 = (event) => {
-    setF1(event.target.value)
+  let [cp, setCp] = useState('')
+  const handleCp = (event) => {
+    setCp(event.target.value)
+  }
+  let [contraseña, setContraseña] = useState('')
+  const handleContraseña = (event) => {
+    setContraseña(event.target.value)
+  }
+  let [telefono, setTelefono] = useState('')
+  const handleTelefono = (event) => {
+    setTelefono(event.target.value)
+  }
+  let [checkPassword, setCheckPassword] = useState('')
+  const handleCheckPassword = (event) => {
+    setCheckPassword(event.target.value)
   }
 
-const onChange = (e) => {
-  let url = `http://localhost:5000/api/user/${id}`;
-  let file = e.target.files[0];
-  uploadFile(url, file);
-};
 
-const uploadFile = (url, file) => {
-  let formData = new FormData();
-  formData.append("img", file);
-  let bodyEntity = {        
-  title: title=="" ? value.title : `${title}`,
-  price: price=="" ? value.price : `${price}`, 
-  stock: stock=="" ? value.stock : `${stock}`, 
-  category: category=="" ? value.category : `${category}`, 
-  f1: f1=="" ? value.f1 : `${f1}`, 
-  f2: f2=="" ? value.f2 : `${f2}`}
-  Object.keys(bodyEntity).map(function(key, index) {
-    formData.append(String(key),String(bodyEntity[key]) )
-  })
-  axios.post(url, formData, {
+const postData = () => {
+ 
+  axios.post(`http://localhost:5000/api/user`, 
+    {        
+      nombre: nombre=="" ? value.nombre : `${nombre}`,
+      apellido: apellido=="" ? value.apellido : `${apellido}`, 
+      documento: documento=="" ? value.documento : `${documento}`, 
+      direccion: direccion=="" ? value.direccion : `${direccion}`, 
+      cp: cp=="" ? value.cp : `${cp}`, 
+      email: email=="" ? value.email : `${email}`,
+      contraseña: contraseña=="" ? value.contraseña : `${contraseña}`,
+      telefono: telefono=="" ? value.telefono : `${telefono}`
+    }
     
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      body: {
-
-      }
-    }).then((response) => {
+    
+    ).then((response) => {
       console.log(response)
     }).catch((error) => {
       console.log(error)
@@ -81,36 +76,51 @@ const uploadFile = (url, file) => {
           return (
         <div  data-aos-delay='50' style={{width: '25rem'}}>
       <Form> 
+    <Form.Field
+      control={Input}
+      label='Nombre'
+      onChange={handleNombre}/>
+
+    <Form.Field
+      control={Input}
+      label='Apellido'
+   
+      onChange={handleApellido}/>
+
+    <Form.Field
+      control={Input}
+      label='Documento'
+      onChange={handleDocumento}/>
+
+    <Form.Field
+      control={Input}
+      label='Direccion'
+   
+      onChange={handleDireccion}/>
+    <Form.Field
+      control={Input}
+      label='Codigo Postal'
+      onChange={handleCp}/>
+
+    <Form.Field
+      control={Input}
+      label='Correo Electronico'
+      onChange={handleEmail}/>
       <Form.Field
       control={Input}
-      label='Titulo'
+      label='Telefono'
+      onChange={handleTelefono}/>
+
+      <Form.Field
+      control={Input}
+      label='Contraseña'
+      onChange={handleContraseña}/>
+
+      <Form.Field
+      control={Input}
+      label='Check Contraseña'
+      onChange={handleCheckPassword}/>
       
-      onChange={handleTitle}/>
-    <Form.Field
-      control={Input}
-      label='Price'
-   
-      onChange={handlePrice}/>
-    <Form.Field
-      control={Input}
-      label='Stock'
-   
-      onChange={handleStock}/>
-   <Form.Field
-      control={Input}
-      label='Categoria'
-   
-      onChange={handleCategory}/>
-    <Form.Field
-      control={Input}
-      label='Fila Izquierda'
-   
-      onChange={handleF1}/>
-    <Form.Field
-      control={Input}
-      label='Fila Derecha'
-   
-      onChange={handleF2}/>
        {/* <Form.Field
       control={Input}
       type='file'
@@ -121,8 +131,7 @@ const uploadFile = (url, file) => {
       single
       accept="image/png, image/jpeg, image/jpeg"
       /> */}
-      <input type="file" onChange={onChange} accept ="image/*"/>
-    <Button >Submit</Button>
+    <Button onClick={postData}>Submit</Button>
   </Form>
        </div>
           );

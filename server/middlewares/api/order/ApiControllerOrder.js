@@ -1,6 +1,7 @@
 
 const mysql = require('mysql2');
 var fs = require('fs');
+const md5 = require('md5')
 const con =  mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -8,13 +9,12 @@ const con =  mysql.createConnection({
   database: "mydb"
 });
 
-
 module.exports = { 
   orderGet(req,res) {
       
       con.connect(function(err) {
           if (err) throw err;
-          con.query("SELECT * FROM order", function (err, result, fields) {
+          con.query("SELECT * FROM purchase", function (err, result, fields) {
             if (err) throw err;
             res.json(result); 
           });
@@ -22,10 +22,10 @@ module.exports = {
   },
   orderGetById(req,res){
     let order = req.params.id
-    let sql = "SELECT * FROM order WHERE idorder = "+ mysql.escape(order);
+
     con.connect(function(err) {
         if (err) throw err;
-        con.query(sql, function (err, result, fields) {
+        con.query(`SELECT * FROM purchase WHERE idorder = "${order}"`, function (err, result, fields) {
           if (err) throw err;
           res.json(result); 
         });
@@ -33,7 +33,7 @@ module.exports = {
   },
   orderGetByEmail(req,res){
     let order = req.params.id
-    let sql = "SELECT * FROM order WHERE email = "+ mysql.escape(order);
+    let sql = "SELECT * FROM purchase WHERE email = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -44,7 +44,7 @@ module.exports = {
   },
 orderGetByUser(req,res){
     let order = req.params.user
-    let sql = "SELECT * FROM order WHERE user = "+ mysql.escape(order);
+    let sql = "SELECT * FROM purchase WHERE user = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -55,7 +55,7 @@ orderGetByUser(req,res){
   },
 orderGetByTelefono(req,res) {
     let order = req.params.telefono
-    let sql = "SELECT * FROM order WHERE telefono = "+ mysql.escape(order);
+    let sql = "SELECT * FROM purchase WHERE telefono = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -66,7 +66,7 @@ orderGetByTelefono(req,res) {
   },
 orderDeleteById(req,res){
     let order = req.params.id
-    let sql = "DELETE FROM order WHERE idorder = "+ mysql.escape(order);
+    let sql = "DELETE FROM purchase WHERE idorder = "+ mysql.escape(order);
     con.connect(function(err) {
         if (err) throw err;
         con.query(sql, function (err, result, fields) {
@@ -90,7 +90,7 @@ orderPutById(req,res) {
       var sql
         if (err) throw err;
       
-        sql = `UPDATE order SET ${newChanges} WHERE (idorder = ` + mysql.escape(order)+")";
+        sql = `UPDATE purchase SET ${newChanges} WHERE (idorder = ` + mysql.escape(order)+")";
       
         con.query(sql, function (err, result) {
           if (err) throw err;
@@ -113,7 +113,7 @@ orderPutById(req,res) {
       var sql
         if (err) throw err;
       
-        sql = `UPDATE order SET ${newChanges} WHERE (email = ` + mysql.escape(order)+")";
+        sql = `UPDATE purchase SET ${newChanges} WHERE (email = ` + mysql.escape(order)+")";
       
         con.query(sql, function (err, result) {
           if (err) throw err;
@@ -135,7 +135,7 @@ orderPutById(req,res) {
     con.connect(function(err) {
       var sql
         if (err) throw err;
-        var sql =  `INSERT INTO user (${newColumn}) VALUES (${newValues})`;
+        var sql =  `INSERT INTO purchase (${newColumn}) VALUES (${newValues})`;
         con.query(sql, function (err, result) {
           if (err) throw err;
           return res.json(result); 

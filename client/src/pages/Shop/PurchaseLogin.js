@@ -7,10 +7,10 @@ import { SwiperSlide, Swiper} from 'swiper/react';
 import 'swiper/css';
 import "swiper/css/navigation";
 
-const IndexItem = () => {
+const PurchaseLogin = () => {
 
    
 
 };
 
-export default IndexItem;
+export default PurchaseLogin;
