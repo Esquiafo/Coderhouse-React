@@ -10,37 +10,7 @@ const FormPut = () => {
   const handleId = (event) => {
     setId(event.target.value)
   }
-  let url =`http://localhost:5000/api/order/${id}`;
-  const handleSet = () => {
-    uploadFile(url,img)
-  }
-
-
-  let [category, setCategory] = useState('')
-  const handleCategory = (event) => {
-    setCategory(event.target.value)
-  }
-  let [title, setTitle] = useState('')
-  const handleTitle = (event) => {
-    setTitle(event.target.value)
-  }
-  let [stock, setStock] = useState('')
-  const handleStock = (event) => {
-    setStock(event.target.value)
-  }
-  
-  let [price, setPrice] = useState('')
-  const handlePrice = (event) => {
-    setPrice(event.target.value)
-  }
-  let [f2, setF2] = useState('')
-  const handleF2 = (event) => {
-    setF2(event.target.value)
-  }
-  let [f1, setF1] = useState('')
-  const handleF1 = (event) => {
-    setF1(event.target.value)
-  }
+  let url =`http://localhost:5000/api/order/id/${id}`;
 
 const byId= () => {
 axios.get(`http://localhost:5000/api/order/id/${id}`)
@@ -50,81 +20,100 @@ axios.get(`http://localhost:5000/api/order/id/${id}`)
     console.error(err);
 });
 }
-const [img, setFile] = useState(undefined);
-const handleImg = (event) => {
-  setFile(event.target.files[0])
-};
+let [email, setEmail] = useState('')
+const handleEmail = (event) => {
+  setEmail(event.target.value)
+}
+let [items, setItems] = useState('')
+const handleItems = (event) => {
+  setItems(event.target.value)
+}
+let [total, setTotal] = useState('')
+const handleTotal = (event) => {
+  setTotal(event.target.value)
+}
 
-const uploadFile = (url, file) => {
-  let formData = new FormData();
-  formData.append("img", file);
-  let bodyEntity = {        
-  title: title=="" ? value.title : `${title}`,
-  price: price=="" ? value.price : `${price}`, 
-  stock: stock=="" ? value.stock : `${stock}`, 
-  category: category=="" ? value.category : `${category}`, 
-  f1: f1=="" ? value.f1 : `${f1}`, 
-  f2: f2=="" ? value.f2 : `${f2}`}
-  Object.keys(bodyEntity).map(function(key, index) {
-    formData.append(String(key),String(bodyEntity[key]) )
-  })
-  axios.put(url, formData, {
-    
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      body: {
+let [phone, setPhone] = useState('')
+const handlePhone = (event) => {
+  setPhone(event.target.value)
+}
+let [estado, setEstado] = useState('')
+const handleEstado = (event) => {
+  setEstado(event.target.value)
+}
+let [cantidad, setCantidad] = useState('')
+const handleCantidad = (event) => {
+  setCantidad(event.target.value)
+}
 
-      }
-    }).then((response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log(error)
-    });
+
+const putData = () => {
+
+axios.put(url, 
+  {        
+    items: items=="" ? value.items : `${items}`,
+    phone: phone=="" ? value.phone : `${phone}`, 
+    total: total=="" ? value.total : `${total}`, 
+    email: email=="" ? value.email : `${email}`, 
+    cantidad: cantidad=="" ? value.cantidad : `${cantidad}`, 
+    estado: estado=="" ? value.estado : `${estado}`
+  }
+  
+  
+  ).then((response) => {
+    console.log(response)
+  }).catch((error) => {
+    console.log(error)
+  });
 };
       let products
       if (value.length!==0) {
         products = value.map(product => {
          
           return (
-        <div  data-aos-delay='50' style={{width: '25rem'}} key={product.idorder}>
-      <Form> 
-      <Form.Field
-      control={Input}
-      label='Titulo'
-      placeholder={product.title}
-      onChange={handleTitle}/>
-    <Form.Field
-      control={Input}
-      label='Price'
-      placeholder={product.price}
-      onChange={handlePrice}/>
-    <Form.Field
-      control={Input}
-      label='Stock'
-      placeholder={product.stock}
-      onChange={handleStock}/>
-   <Form.Field
-      control={Input}
-      label='Categoria'
-      placeholder={product.category}
-      onChange={handleCategory}/>
-    <Form.Field
-      control={Input}
-      label='Fila Izquierda'
-      placeholder={product.f1}
-      onChange={handleF1}/>
-    <Form.Field
-      control={Input}
-      label='Fila Derecha'
-      placeholder={product.f2}
-      onChange={handleF2}/>
-      
-      <input type="file" onChange={handleImg} accept ="image/*"/>
-    <Button onClick={handleSet}>Submit</Button>
-  </Form>
-       </div>
-          );
+            <div  data-aos-delay='50' style={{width: '25rem'}}>
+          <Form> 
+        <Form.Field
+          control={Input}
+          label='Items'
+          placeholder={product.items}
+          onChange={handleItems}/>
+        <Form.Field
+          control={Input}
+          label='Cantidad'
+          placeholder={product.cantidad}
+          onChange={handleCantidad}/>
+        <Form.Field
+          control={Input}
+          label='Phone'
+          placeholder={product.phone}
+          onChange={handlePhone}/>
+    
+        <Form.Field
+          control={Input}
+          label='Total'
+          placeholder={product.total}
+          onChange={handleTotal}/>
+    
+        <Form.Field
+          control={Input}
+          label='Email'
+          placeholder={product.email}
+          onChange={handleEmail}/>
+
+              
+        <Form.Field
+          control={Input}
+          label='Estado'
+          placeholder={product.estado}
+          onChange={handleEstado}/>
+
+
+
+        <Button onClick={putData}>Submit</Button>
+      </Form>
+           </div>
+              );
         });
       }
   return (

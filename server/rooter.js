@@ -178,11 +178,11 @@ app.delete('/api/order/id/:id', (req,res) => {
   orderDeleteById(req,res)
 });
 //Update
-app.put('/api/order/email/:id', (req,res) => {
+app.put('/api/order/id/:id', (req,res) => {
     orderPutById(req,res)
 });
 //Update
-app.put('/api/order/id/:id', (req,res) => {
+app.put('/api/order/email/:email', (req,res) => {
   orderPutByEmail(req,res)
 });
 
