@@ -1,19 +1,29 @@
 
-import React from "react";
+import React, {useState} from "react";
+import { useHistory} from "react-router-dom";
 import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react'
 
 
 
 const Login = () => {
+  const history = useHistory();
+  let [auth, setAuth] = useState(false);
+  function handleClick() {
+    if ( auth == true ) {
+      history.push('user/login')
+    }else{
+      alert('Email y/o contraseña erroneos')
+    }
+  }
   return (
     <div style={{background: '#EAEAEA'}}>
-    <Segment placeholder>
+    <Segment >
 <Grid columns={2} relaxed='very' stackable>
   <Grid.Column>
     <Form>
       <Form.Input
         icon='user'
-        iconPosition='left'
+        iconPosition='left' 
         label='Username'
         placeholder='Username'
       />
@@ -24,7 +34,7 @@ const Login = () => {
         type='password'
       />
 
-      <Button content='Login' primary />
+      <Button onClick={handleClick} content='Login' primary />
     </Form>
   </Grid.Column>
 
@@ -33,7 +43,7 @@ const Login = () => {
   </Grid.Column>
 </Grid>
 
-<Divider vertical>Or</Divider>
+<Divider vertical>O</Divider>
 </Segment>
 
     </div>

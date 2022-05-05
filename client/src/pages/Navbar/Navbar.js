@@ -2,7 +2,8 @@ import React, {useContext, useState} from 'react';
 import {Link,Switch} from "react-router-dom";
 import CartWidget  from './CartWidget';
 import CartContext from '../../Context/CartContext'
-import {Container, Button, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import {Container, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import {Icon, Button} from 'semantic-ui-react'
 import Navbar from 'react-bootstrap/Navbar'
 const Navigation= () =>{
   const context = useContext(CartContext)
@@ -76,7 +77,12 @@ const Navigation= () =>{
         </div>
     
       </Nav>
-      <Form className="d-flex">
+      <Link to='/user'>
+      <Button>
+      <Icon circular inverted name='users' />
+      </Button>
+      </Link>
+      {/* <Form className="d-flex">
         <FormControl
           type="search"
           placeholder="EN PROCESO"
@@ -84,7 +90,7 @@ const Navigation= () =>{
           aria-label="Search"
         />
         <Button variant="outline-success">Search</Button>
-      </Form>
+      </Form> */}
     </Navbar.Collapse>
   </Container>
 </Navbar>

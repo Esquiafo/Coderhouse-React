@@ -38,6 +38,7 @@ const SingleOrder = (props) => {
             <div key={product.idorder}> 
 
             <Header>Order Id: {product.idorder}</Header>
+            <Header>Estado Id: {product.estado}</Header>
             {purchaseList.map(x=>
             {
                 {count++}

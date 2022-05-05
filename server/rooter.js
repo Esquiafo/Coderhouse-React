@@ -5,6 +5,10 @@ const multer = require('multer');
 const path = require('path');
 const cors = require("cors");
 const bodyParser = require('body-parser');
+var mercadopago = require('mercadopago');
+mercadopago.configure({
+    access_token: 'TEST-7239623515715170-031003-22d6a3c306932a7cdcfe1c8d2bc43652-156057208'
+});
 //Middlewares product
 const {
 itemDeleteById,
@@ -192,6 +196,12 @@ app.post('/api/order', (req,res) => {
 });
 
 //************FIN PATH PARA ORDER************//
+
+app.get('/checkout/preferences', (req,res) =>{
+  
+})
+
+
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+"ERRORE"));
